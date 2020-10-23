@@ -1,0 +1,8 @@
+numpy==1.18.1
+torch==1.4.0
+pytorch-transformers==1.1.0
+allennlp==0.9.0
+tensorflow==1.15.4
+spacy==2.1.9
+scispacy==0.2.3
+https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.2.3/en_core_sci_md-0.2.3.tar.gz

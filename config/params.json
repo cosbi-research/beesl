@@ -1,0 +1,125 @@
+{
+    "dataset_reader": {
+        "type": "udify_universal_dependencies",
+        "lazy": false,
+        "token_indexers": {
+            "bert": {
+                "type": "udify-bert-pretrained",
+                "do_lowercase": false,
+                "pretrained_model": "models/biobert_v1.1_pubmed/vocab.txt",
+                "use_starting_offsets": true
+            },
+            "tokens": {
+                "type": "single_id",
+                "lowercase_tokens": true
+            }
+        }
+    },
+    "iterator": {
+        "type": "bucket",
+        "batch_size": 64,
+        "biggest_batch_first": true,
+        "maximum_samples_per_batch": [
+            "num_tokens",
+            3200
+        ],
+        "sorting_keys": [
+            [
+                "tokens",
+                "num_tokens"
+            ]
+        ]
+    },
+    "model": {
+        "type": "udify_model",
+        "default_decoder": {
+            "type": "udify_tag_decoder",
+            "dropout": 0.5,
+            "encoder": {
+                "type": "pass_through",
+                "input_dim": 800
+            },
+            "label_smoothing": 0.03,
+            "layer": 12,
+            "prev_task_embed_dim": 32,
+            "transformer": ""
+        },
+        "encoder": {
+            "type": "pass_through",
+            "input_dim": 768
+        },
+        "layer_dropout": 0.1,
+        "mix_embedding": true,
+        "text_field_embedder": {
+            "type": "udify_embedder",
+            "allow_unmatched_keys": true,
+            "dropout": 0.5,
+            "embedder_to_indexer_map": {
+                "bert": [
+                    "bert",
+                    "bert-offsets"
+                ]
+            },
+            "token_embedders": {
+                "bert": {
+                    "type": "udify-bert-pretrained",
+                    "combine_layers": "all",
+                    "dropout": 0.1,
+                    "layer_dropout": 0.1,
+                    "pretrained_model": "models/biobert_v1.1_pubmed/",
+                    "requires_grad": true
+                }
+            }
+        },
+        "weight_embeddings": true,
+        "word_dropout": 0.1
+    },
+    "trainer": {
+        "cuda_device": 0,
+        "grad_clipping": 10,
+        "grad_norm": 5,
+        "learning_rate_scheduler": {
+            "type": "ulmfit_sqrt",
+            "decay_factor": 0.04,
+            "discriminative_fine_tuning": true,
+            "factor": 5,
+            "gradual_unfreezing": true,
+            "model_size": 1,
+            "start_step": 136,
+            "warmup_steps": 136
+        },
+        "num_epochs": 50,
+        "num_serialized_models_to_keep": 1,
+        "optimizer": {
+            "type": "bert_adam",
+            "b1": 0.9,
+            "b2": 0.99,
+            "lr": 0.01,
+            "parameter_groups": [
+                [
+                    [
+                        "^text_field_embedder.*.bert_model.embeddings",
+                        "^text_field_embedder.*.bert_model.encoder"
+                    ],
+                    {}
+                ],
+                [
+                    [
+                        "^text_field_embedder.*._scalar_mix",
+                        "^text_field_embedder.*.pooler",
+                        "^scalar_mix",
+                        "^decoders",
+                        "^shared_encoder"
+                    ],
+                    {}
+                ]
+            ],
+            "weight_decay": 0.01
+        },
+        "patience": 5,
+        "should_log_learning_rate": true,
+        "should_log_parameter_statistics": false,
+        "summary_interval": 100,
+        "validation_metric": "+.run/.sum"
+    }
+}
