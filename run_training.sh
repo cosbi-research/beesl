@@ -43,5 +43,5 @@ for train in "${traindata[@]}"; do
 done
    
 # Post training actions, eg, containers, shutdown, etc.
-#sudo halt 
+sudo halt 
     
