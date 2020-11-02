@@ -192,4 +192,4 @@ If you use this work in your research paper, please cite us!
 
 ## Contacts
 
-Please address all enquiries to [biomed-knowledge-extraction@cosbi.eu](mailto:biomed-knowledge-extraction@cosbi.eu?subject=BeeSL) team.
+Please address any enquiries to lombardo@cosbi.eu team.
