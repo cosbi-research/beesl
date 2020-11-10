@@ -31,14 +31,14 @@ IFS=':' read -r -a traindata <<< "$2"
 validationdir="$3"
 testfile="${4##*/}"
 
-for train in "${traindata[@]}"; do
-	trainfile="${train##*/}"
-	trainfile="${trainfile%%.*}"
+for model in "${models[@]}"; do
+	modelfile="${model##*/}"
+	modelfile="${modelfile%%.*}"
 	
-	for model in "${models[@]}"; do
-		modelfile="${model##*/}"
-		modelfile="${modelfile%%.*}"
-		
+	for train in "${traindata[@]}"; do
+		trainfile="${train##*/}"
+		trainfile="${trainfile%%.*}"
+	
 		name="${modelfile}_${trainfile}_${testfile}"
 
 		# Run training
