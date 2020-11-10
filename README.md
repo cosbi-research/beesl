@@ -4,15 +4,15 @@ This repository contains the source code for the paper: [Biomedical Event Extrac
 
 We recast Biomedical Event Extraction as Sequence Labeling (**BeeSL**), taking advantage of a multi-label aware encoding strategy and jointly modeling the intermediate tasks via multi-task learning. BeeSL is a deep learning solution that is fast, accurate, end-to-end, and unlike current methods does not require any external knowledge base or preprocessing tools as it builds on [BERT](https://www.aclweb.org/anthology/N19-1423/). Empirical results show that BeeSL's speed and accuracy makes it a viable approach for large-scale real-world scenarios. For more information on ongoing work on biomedical information extraction, visit the [COSBI prototypes](https://www.cosbi.eu/research/prototypes/biomedical_knowledge_extraction) page.
 
-1. [BeeSL in short](#how-does-beesl-work-in-short)
-2. [Installation](#installation)
-3. [Usage](#system-usage)
-  1. [Event detection (prediction)](#event-detection-prediction)
-  2. [Training a new model](#training-a-new-model)
-4. [Data and configuration files](#data-and-configuration-files)
+- [BeeSL in short](#how-does-beesl-work-in-short)
+- [Installation](#installation)
+- [Usage](#system-usage)
+  + [Event detection (prediction)](#event-detection-prediction)
+  + [Training a new model](#training-a-new-model)
+- [Data and configuration files](#data-and-configuration-files)
   1. [Token-level data format](#token-level-data-format)
   2. [Configuration files format](#configuration-files-format)
-5. [Reference](#reference)
+- [Reference](#reference)
 6. [Contacts](#contacts)
 
 
