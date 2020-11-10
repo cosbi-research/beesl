@@ -108,7 +108,7 @@ python train.py --name $NAME --dataset_config $DATASET_CONFIG --parameters_confi
   * e.g., `$BEESL_DIR/config/params.json` we provide (recommended), or your own one
 * `$DEVICE`: a device where to run the training (i.e., CPU: `-1`, GPU: `0`, `1`, ...)
 
-The serialized model will be stored in `beesl/logs/$NAME/$DATETIME/model.tar.gz`, where `$DATETIME` is a folder to disambiguate multiple executions with the same `$NAME`. A performance report will be in `beesl/logs/$NAME/$DATETIME/results.txt`. You can then use the model to [predict](#prediction) new data.
+The serialized model will be stored in `beesl/logs/$NAME/$DATETIME/model.tar.gz`, where `$DATETIME` is a folder to disambiguate multiple executions with the same `$NAME`. A performance report will be in `beesl/logs/$NAME/$DATETIME/results.txt`. To use your newly trained model to [predict](#event-detection-prediction) new data see instruction in the [installation](#installation) section.
 
 
 
