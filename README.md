@@ -9,11 +9,9 @@ We recast Biomedical Event Extraction as Sequence Labeling (**BeeSL**), taking a
 - [Usage](#system-usage)
   + [Event detection (prediction)](#event-detection-prediction)
   + [Training a new model](#training-a-new-model)
-- [Data and configuration files](#data-and-configuration-files)
-  1. [Token-level data format](#token-level-data-format)
-  2. [Configuration files format](#configuration-files-format)
+- [Configuration and formats](#configuration-and-formats)
 - [Reference](#reference)
-6. [Contacts](#contacts)
+- [Contacts](#contacts)
 
 
 
@@ -57,7 +55,7 @@ Download the GENIA event data
 ```
 sh download_data.sh
 ```
-Download the trained BeeSL model described in the paper and place it 
+Download the BeeSL model described in the [paper](#reference) and place it in beesl/models/beesl-model/. In that folder you may later place your [own BERT-based models](#training). The models need to be specified in the file config/params.json, setting the parameter `pretrained_model`. The provided config.json already references the model at that path. Make sure to update the configuration if you place the model somewhere else.
 ```
 curl -O https://www.cosbi.eu/fx/2354/model.tar.gz
 ```
@@ -79,9 +77,8 @@ python predict.py $PATH_TO_MODEL $INPUT_FILE $OUTPUT_FILE --device $DEVICE
 ```
 
 The arguments are
-* `$PATH_TO_MODEL`: a serialized model fine-tuned on biomedical events
-  * e.g., `$BEESL_DIR/model.tar.gz` you just downloaded, or a model you previously trained (see [how to do it](#training))
-* `$INPUT_FILE`: a filepath with data into a token-level format with entities masked (details on the format [here](#details-on-the-format))
+* `$PATH_TO_MODEL`: a serialized model fine-tuned on biomedical events, for example the one provided above at https://www.cosbi.eu/fx/2354/model.tar.gz.
+* `$INPUT_FILE`: a filepath with data into a token-level format with entities masked ([details on the format](#configuration-and-formats))
   * e.g., `$BEESL_DIR/data/GE11/masked/test.mt.1` we provide, or your own data (see [how to do it](#token-level-data-format))
 * `$OUTPUT_FILE`: a filepath where to write the predictions of events
 * `$DEVICE`: a device where to run the inference (i.e., CPU: `-1`, GPU: `0`, `1`, ...)
@@ -101,16 +98,16 @@ Predicted event files in the standard [BioNLP standoff format](http://2011.bionl
 To evaluate the prediction performance on the GENIA test set, compress the results `cd $BEESL_DIR/output/ && tar -czf predictions.tar.gz *.a2` and submit `predictions.tar.gz` to the official [GENIA online evaluation service](http://bionlp-st.dbcls.jp/GE/2011/eval-test/).
 
 
-### Training
+## Training a new model
 
-To train a new model, just run:
+To train a new model type:
 ```
 python train.py --name $NAME --dataset_config $DATASET_CONFIG --parameters_config $PARAMETERS_CONFIG --device $DEVICE
 ```
 * `$NAME`: a name for the execution that will be used as folder where outputs will be stored
-* `$DATASET_CONFIG`: a filepath to a config file storing information on the task(s) (see details [here](#dataset-configuration-file))
+* `$DATASET_CONFIG`: a filepath to a config file storing information on the task(s) (see [details](#dataset-configuration-file))
   * e.g., `$BEESL_DIR/config/mt.1.mh.0.50.json` we provide (recommended), or your own one
-* `$PARAMETERS_CONFIG`: a filepath to a config file storing network parameters details (see details [here](#parameters-configuration-file))
+* `$PARAMETERS_CONFIG`: a filepath to a config file storing network parameters details (see [details](#parameters-configuration-file))
   * e.g., `$BEESL_DIR/config/params.json` we provide (recommended), or your own one
 * `$DEVICE`: a device where to run the training (i.e., CPU: `-1`, GPU: `0`, `1`, ...)
 
@@ -118,12 +115,12 @@ The serialized model will be stored in `beesl/logs/$NAME/$DATETIME/model.tar.gz`
 
 
 
-## Data and configuration files
+# Configuration and formats
 
 
-### Token-level data format
+## Token-level data format
 
-Biomedical events are defined using the standard BioNLP standoff format [described here](http://2011.bionlp-st.org/home/file-formats). To encode biomedical events from the BioNLP standoff format into sequences of labels for BeeSL just run the following:
+Biomedical events are defined using the standard [BioNLP standoff format](http://2011.bionlp-st.org/home/file-formats). To encode biomedical events from the BioNLP standoff format into sequences of labels for BeeSL, run the following:
 ```
 python bioscripts/preprocess.py --corpus $CORPUS_FOLDER --masking $MASKING
 ```
@@ -132,7 +129,7 @@ python bioscripts/preprocess.py --corpus $CORPUS_FOLDER --masking $MASKING
 - `$MASKING`: the masking of entity. You need to run for both `no` and `type` values
   - `type` means masking the token with the entity type text placeholder (to avoid overfitting to words during training), whereas `no` is used during evaluation only (to ensure the correct evaluation of entity arguments)
 
-#### Details on the format
+### Details on the format
 
 The token-level file format has the following shape, where each sentence has an header `doc_id = $DOC_ID` indicating the document id, and all its tokens are on new lines (with token information on columns, described below). Finally, an empty newline follows the last token (see this [token-level file example](data/GE11/masked/test.mt.1) for more information):
 ```
@@ -151,11 +148,11 @@ $TOKEN_TEXT	$START-$END	$ID	$ENTITY_TYPE	$EXTRA	$EXTRA	$LABEL(1)	...	$LABEL(n)
 - `$LABEL(i)`: a label part. You can have many columns as the number of tasks
 
 
-### Configuration files format
+## Configuration files
 
 The training process requires configuration files to know how to conduct the training itself. For more information on possible keys refer to the original [AllenNLP configuration template](https://github.com/allenai/allennlp-template-config-files/blob/master/training_config/my_model_trained_on_my_dataset.jsonnet), on which our configuration files are based.
 
-#### Dataset configuration file
+**Dataset configuration file**
 
 A dataset configuration file is used to define the data path and details on the tasks. **We recommend to use our configuration file for the multi-task multi-label setup** (`$BEESL_DIR/config/mt.1.mh.0.50.json` [here](config/mt.1.mh.0.50.json)). In the case you need to train BeeSL on new data, you need to define the path to your data (we explained how to create these data files in the [Token-level data format](#token-level-data-format) section):
 ```
@@ -164,13 +161,13 @@ A dataset configuration file is used to define the data path and details on the 
 "test_data_path": "",       # path to the masked token-level validation file
 ```
 
-#### Parameters configuration file
+**Parameters configuration file**
 
 A parameters configuration file is used to define the details of the model (i.e., hyper-parameters, BERT details, etc.). **We recommend to use our parameters configuration file** (`$BEESL_DIR/config/params.json` [here](config/params.json)). Expert users that want to run an hyper-parameter tuning themselves can refer to the [AllenNLP configuration template](https://github.com/allenai/allennlp-template-config-files/blob/master/training_config/my_model_trained_on_my_dataset.jsonnet) for the meaning of all keys in the `json` file.
 
 
 
-## Reference
+# Reference and Contact
 
 If you use this work in your research paper, please cite us!
 
@@ -186,9 +183,4 @@ If you use this work in your research paper, please cite us!
     url       = ""  % we will update this field when available
 }
 ```
-
-
-
-## Contacts
-
-Please address any enquiry to lombardo@cosbi.eu.
+For any information of request please get in touch with the Cosbi Bioformatics lab, led by lombardo@cosbi.eu where we'll happy to help.
