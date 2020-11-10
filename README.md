@@ -78,8 +78,8 @@ python predict.py $PATH_TO_MODEL $INPUT_FILE $OUTPUT_FILE --device $DEVICE
 
 The arguments are
 * `$PATH_TO_MODEL`: a serialized model fine-tuned on biomedical events, for example the one provided above at https://www.cosbi.eu/fx/2354/model.tar.gz.
-* `$INPUT_FILE`: a filepath with data into a token-level format with entities masked ([details on the format](#configuration-and-formats))
-  * e.g., `$BEESL_DIR/data/GE11/masked/test.mt.1` we provide, or your own data (see [how to do it](#token-level-data-format))
+* `$INPUT_FILE`: a filepath with data into a token-level format with entities masked ([details on the format](#standard-token-level-data-format))
+  * e.g., `$BEESL_DIR/data/GE11/masked/test.mt.1` we provide, or your own data (see [how to do it](#details-on-the-beesl-format))
 * `$OUTPUT_FILE`: a filepath where to write the predictions of events
 * `$DEVICE`: a device where to run the inference (i.e., CPU: `-1`, GPU: `0`, `1`, ...)
 
@@ -118,7 +118,7 @@ The serialized model will be stored in `beesl/logs/$NAME/$DATETIME/model.tar.gz`
 # Configuration and formats
 
 
-## Token-level data format
+## Standard token-level data format
 
 Biomedical events are defined using the standard [BioNLP standoff format](http://2011.bionlp-st.org/home/file-formats). To encode biomedical events from the BioNLP standoff format into sequences of labels for BeeSL, run the following:
 ```
@@ -129,7 +129,7 @@ python bioscripts/preprocess.py --corpus $CORPUS_FOLDER --masking $MASKING
 - `$MASKING`: the masking of entity. You need to run for both `no` and `type` values
   - `type` means masking the token with the entity type text placeholder (to avoid overfitting to words during training), whereas `no` is used during evaluation only (to ensure the correct evaluation of entity arguments)
 
-### Details on the format
+### Details on the BeeSL format
 
 The token-level file format has the following shape, where each sentence has an header `doc_id = $DOC_ID` indicating the document id, and all its tokens are on new lines (with token information on columns, described below). Finally, an empty newline follows the last token (see this [token-level file example](data/GE11/masked/test.mt.1) for more information):
 ```
