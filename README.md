@@ -1,10 +1,12 @@
 # Biomedical Event Extraction as Sequence Labeling <img src="resources/bee.png" width="50" height="38"/>
 
-This repository contains the source code for the paper: [Biomedical Event Extraction as Sequence Labeling](https://www.researchgate.net/publication/344541520_Biomedical_Event_Extraction_as_Sequence_Labeling). You may freely use [this work](#reference-and-contact) in your research and activities under the non-commercial [COSBI-SSLA license](https://www.cosbi.eu/research/prototypes/licence_terms).
+This repository contains the source code for the paper: [Biomedical Event Extraction as Sequence Labeling](https://www.researchgate.net/publication/344541520_Biomedical_Event_Extraction_as_Sequence_Labeling) (**BeeSL**). You may freely use [this work](#reference-and-contact) in your research and activities under the non-commercial [COSBI-SSLA license](https://www.cosbi.eu/research/prototypes/licence_terms).
 
-We recast Biomedical Event Extraction as Sequence Labeling (**BeeSL**), taking advantage of a multi-label aware encoding strategy and jointly modeling the intermediate tasks via multi-task learning. BeeSL is a deep learning solution that is fast, accurate, end-to-end, and unlike current methods does not require any external knowledge base or preprocessing tools as it builds on [BERT](https://www.aclweb.org/anthology/N19-1423/). Empirical results show that BeeSL's speed and accuracy makes it a viable approach for large-scale real-world scenarios. For more information on ongoing work on biomedical information extraction you may want to get in touch the Cosbi Bioinformatics lab led by lombardo@cosbi.eu or visit the [COSBI knowledge extraction page](https://www.cosbi.eu/research/prototypes/biomedical_knowledge_extraction).
+BeeSL is a deep learning solution that is fast, accurate, end-to-end, and unlike current methods does not require any external knowledge base or preprocessing tools as it builds on [BERT](https://www.aclweb.org/anthology/N19-1423/). Empirical results show that BeeSL's speed and accuracy makes it a viable approach for large-scale real-world scenarios.
 
-- [BeeSL in short](#how-does-beesl-work-in-short)
+For more information on ongoing work on biomedical information extraction you may want to get in touch the Cosbi Bioinformatics lab led by lombardo@cosbi.eu or visit the [COSBI knowledge extraction page](https://www.cosbi.eu/research/prototypes/biomedical_knowledge_extraction).
+
+- [How does BeeSL work (in short)?](#how-does-beesl-work)
 - [Installation](#installation)
 - [Usage](#system-usage)
   + [Event detection (prediction)](#event-detection-prediction)
@@ -14,9 +16,7 @@ We recast Biomedical Event Extraction as Sequence Labeling (**BeeSL**), taking a
 
 
 
-# How does BeeSL work in short?
-
-**1) Encoding of biomedical events into a sequence of labels**
+# How does BeeSL work?
 
 Biomedical events are structured representations which comprise multiple information units (Figure 1, top part). We convert the event structures into a representation in which each token (roughly, word) is assigned labels summarizing its pertinent parts of the original event structure (Figure 1, bottom part), where:
 - `d` (*dependent*): the mention type of the token (either an event trigger, entity, or nothing)
@@ -26,10 +26,9 @@ Biomedical events are structured representations which comprise multiple informa
 ![encoding](resources/encoding.png)
 **Figure 1**: *Top: a text excerpt with four biomedical events. Above the text (italicized), mentions (triggers inside rounded boxes, and entities without rounded boxes) and argument roles are indicated. Bottom: our proposed encoding, where d, r and h represent the label parts for dependents, relations, and heads, respectively. See the [paper]() for more details.*
 
-**2) Prediction of the sequence of labels and decoding**
+At this point any token may then have multiple associated labels. We recast event extraction as a sequence labeling task and, adopting a system thinking approach, we design a multi-label aware encoding strategy for jointly modeling the intermediate tasks via multi-task learning.
 
-The labels for the token sequences are predicted using a neural architecture employing BERT as encoder, and dedicated classifiers for predicting the label parts (referred as tasks). Experimental results show that the best results are achieved by learning two tasks in a multi-task setup: `<d>` (with a single label classifier) and `<r,h>` (with a multi-label classifier, to capture the participation of the token into multiple events). The sequences are thus decoded to the original event representation (Figure 1, top part).
-
+After encoding events as a sequence of labels the labels for the token sequences are predicted using a neural architecture employing BERT as encoder. Dedicated classifiers for predicting the label parts (referred as tasks) are devised. Experimental results show that the best results are achieved by learning two tasks in a multi-task setup: `<d>` (with a single label classifier) and `<r,h>` (with a multi-label classifier, to capture the participation of the token into multiple events). The sequences are thus decoded to the original event representation (Figure 1, top part).
 
 
 # Installation
