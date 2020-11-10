@@ -8,7 +8,7 @@ For more information on ongoing work on biomedical information extraction you ma
 
 - [How does BeeSL work (in short)?](#how-does-beesl-work)
 - [Installation](#installation)
-- [Usage](#system-usage)
+- [Usage](#usage)
   + [Event detection (prediction)](#event-detection-prediction)
   + [Training a new model](#training-a-new-model)
 - [Configuration and formats](#configuration-and-formats)
