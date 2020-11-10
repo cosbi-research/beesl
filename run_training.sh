@@ -50,7 +50,7 @@ for train in "${traindata[@]}"; do
 		python predict.py logs/${name}/${tstamp}/model.tar.gz ${testfile} logs/${name}/${tstamp}/pred.txt --device 0
 		python bio-mergeBack.py logs/${name}/${tstamp}/pred.txt ${testfile} 2 > logs/${name}/${tstamp}/pred-notmasked.txt
 		python bioscripts/postprocess.py --filepath logs/${name}/${tstamp}/pred-notmasked.txt && mv output logs/${name}/${tstamp}/
-		perl bioscripts/eval/a2-normalize.pl -v -g ${validationdir} -o logs/${1}/${tstamp}/output_norm logs/${1}/${tstamp}/output/*.a2
+		perl bioscripts/eval/a2-normalize.pl -v -g ${validationdir} -o logs/${1}/${tstamp}/output_norm logs/${name}/${tstamp}/output/*.a2
 		perl bioscripts/eval/a2-evaluate.pl -g ${validationdir} -t1 -sp logs/${name}/${tstamp}/output_norm/*.a2 > logs/${name}/${tstamp}/results.txt
 		
 		mv ~/beesl/logs/${name}/${tstamp}/results.txt ~/beesl/logs/${name}/${tstamp}/results_${name}_${tstamp}.txt
