@@ -169,7 +169,7 @@ A parameters configuration file is used to define the details of the model (i.e.
 
 # Reference and Contact
 
-If you use this work in your research paper, please cite us!
+If you use this work in your research paper, we provide the full citation details for your reference.
 
 ```
 @inproceedings{ramponi-etal-2020-biomedical,
@@ -183,4 +183,4 @@ If you use this work in your research paper, please cite us!
     url       = ""  % we will update this field when available
 }
 ```
-For any information of request please get in touch with the Cosbi Bioformatics lab led by lombardo@cosbi.eu where we'll happy to help.
+For any information or request please get in touch with the Cosbi Bioformatics lab led by lombardo@cosbi.eu where we'll happy to help.
