@@ -6,6 +6,8 @@ This repository contains the source code for [Biomedical Event Extraction as Seq
 
 For more information on ongoing work on biomedical information extraction you may want to visit the [COSBI knowledge extraction page](https://www.cosbi.eu/research/prototypes/biomedical_knowledge_extraction) or get in touch with the Cosbi Bioinformatics lab led by lombardo@cosbi.eu.
 
+# Table of contents
+
 - [How does BeeSL work (in short)?](#how-does-beesl-work)
 - [Installation](#installation)
 - [Usage](#usage)
