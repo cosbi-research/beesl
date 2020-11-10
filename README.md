@@ -4,7 +4,7 @@ This repository contains the source code for the paper: [Biomedical Event Extrac
 
 BeeSL is a deep learning solution that is fast, accurate, end-to-end, and unlike current methods does not require any external knowledge base or preprocessing tools as it builds on [BERT](https://www.aclweb.org/anthology/N19-1423/). Empirical results show that BeeSL's speed and accuracy makes it a viable approach for large-scale real-world scenarios.
 
-For more information on ongoing work on biomedical information extraction you may want to get in touch the Cosbi Bioinformatics lab led by lombardo@cosbi.eu or visit the [COSBI knowledge extraction page](https://www.cosbi.eu/research/prototypes/biomedical_knowledge_extraction).
+For more information on ongoing work on biomedical information extraction you may want to visit the [COSBI knowledge extraction page](https://www.cosbi.eu/research/prototypes/biomedical_knowledge_extraction) or get in touch with the Cosbi Bioinformatics lab led by lombardo@cosbi.eu.
 
 - [How does BeeSL work (in short)?](#how-does-beesl-work)
 - [Installation](#installation)
@@ -13,7 +13,6 @@ For more information on ongoing work on biomedical information extraction you ma
   + [Training a new model](#training-a-new-model)
 - [Configuration and formats](#configuration-and-formats)
 - [Reference](#reference-and-contact)
-
 
 
 # How does BeeSL work?
