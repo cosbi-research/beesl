@@ -1,8 +1,8 @@
 # Biomedical Event Extraction as Sequence Labeling <img src="resources/bee.png" width="50" height="38"/>
 
-This repository contains the source code for the paper: [Biomedical Event Extraction as Sequence Labeling](). You may freely use [this work](#reference) in your research and activities under the non-commercial [COSBI-SSLA](https://www.cosbi.eu/research/prototypes/licence_terms) license.
+This repository contains the source code for the paper: [Biomedical Event Extraction as Sequence Labeling](https://www.researchgate.net/publication/344541520_Biomedical_Event_Extraction_as_Sequence_Labeling). You may freely use [this work](#reference-and-contact) in your research and activities under the non-commercial [COSBI-SSLA license](https://www.cosbi.eu/research/prototypes/licence_terms).
 
-We recast Biomedical Event Extraction as Sequence Labeling (**BeeSL**), taking advantage of a multi-label aware encoding strategy and jointly modeling the intermediate tasks via multi-task learning. BeeSL is a deep learning solution that is fast, accurate, end-to-end, and unlike current methods does not require any external knowledge base or preprocessing tools as it builds on [BERT](https://www.aclweb.org/anthology/N19-1423/). Empirical results show that BeeSL's speed and accuracy makes it a viable approach for large-scale real-world scenarios. For more information on ongoing work on biomedical information extraction, visit the [COSBI prototypes](https://www.cosbi.eu/research/prototypes/biomedical_knowledge_extraction) page.
+We recast Biomedical Event Extraction as Sequence Labeling (**BeeSL**), taking advantage of a multi-label aware encoding strategy and jointly modeling the intermediate tasks via multi-task learning. BeeSL is a deep learning solution that is fast, accurate, end-to-end, and unlike current methods does not require any external knowledge base or preprocessing tools as it builds on [BERT](https://www.aclweb.org/anthology/N19-1423/). Empirical results show that BeeSL's speed and accuracy makes it a viable approach for large-scale real-world scenarios. For more information on ongoing work on biomedical information extraction you may want to get in touch the Cosbi Bioinformatics lab led by lombardo@cosbi.eu or visit the [COSBI knowledge extraction page](https://www.cosbi.eu/research/prototypes/biomedical_knowledge_extraction).
 
 - [BeeSL in short](#how-does-beesl-work-in-short)
 - [Installation](#installation)
@@ -10,8 +10,7 @@ We recast Biomedical Event Extraction as Sequence Labeling (**BeeSL**), taking a
   + [Event detection (prediction)](#event-detection-prediction)
   + [Training a new model](#training-a-new-model)
 - [Configuration and formats](#configuration-and-formats)
-- [Reference](#reference)
-- [Contacts](#contacts)
+- [Reference](#reference-and-contact)
 
 
 
@@ -44,18 +43,18 @@ python -m pip install -r requirements.txt # install the packages from requiremen
 ```
 **NOTE**: we have tried hard, but there is no easy way to ship the installation of conda across operating systems and users, therefore this step is a necessary manual operation to do.
 
-Download the pre-trained `BioBERT-Base v1.1 (+ PubMed 1M)` model from [here](https://github.com/dmis-lab/biobert "here") and run:
+Download the pre-trained [BioBERT-Base v1.1 (+ PubMed 1M) model](https://github.com/dmis-lab/biobert "here") and run:
 ```
 # Extract the model, convert it to pytorch, and clean the directory
 tar xC models -f $DOWNLOAD_DIR/biobert_v1.1_pubmed.tar.gz 
 pytorch_transformers bert models/biobert_v1.1_pubmed/model.ckpt-1000000 models/biobert_v1.1_pubmed/bert_config.json models/biobert_v1.1_pubmed/pytorch_model.bin
 rm models/biobert_v1.1_pubmed/model.ckpt*
 ```
-Download the GENIA event data
+Download the GENIA event data with our automatized script:
 ```
 sh download_data.sh
 ```
-Download the BeeSL model described in the [paper](#reference) and place it in beesl/models/beesl-model/. In that folder you may later place your [own BERT-based models](#training). The models need to be specified in the file config/params.json, setting the parameter `pretrained_model`. The provided config.json already references the model at that path. Make sure to update the configuration if you place the model somewhere else.
+Download the BeeSL model described in the [paper](#reference-and-contact). Place the model in beesl/models/beesl-model/. In that folder you may later place your [own BERT-based models](#training). The models are declared in the file config/params.json, setting the parameter `pretrained_model`. The provided config.json already references the model at that path. If you place the model somewhere else, make sure to update the configuration.
 ```
 curl -O https://www.cosbi.eu/fx/2354/model.tar.gz
 ```
@@ -183,4 +182,4 @@ If you use this work in your research paper, please cite us!
     url       = ""  % we will update this field when available
 }
 ```
-For any information of request please get in touch with the Cosbi Bioformatics lab, led by lombardo@cosbi.eu where we'll happy to help.
+For any information of request please get in touch with the Cosbi Bioformatics lab led by lombardo@cosbi.eu where we'll happy to help.
