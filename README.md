@@ -4,11 +4,11 @@ This repository contains the source code for the paper: [Biomedical Event Extrac
 
 We recast Biomedical Event Extraction as Sequence Labeling (**BeeSL**), taking advantage of a multi-label aware encoding strategy and jointly modeling the intermediate tasks via multi-task learning. BeeSL is a deep learning solution that is fast, accurate, end-to-end, and unlike current methods does not require any external knowledge base or preprocessing tools as it builds on [BERT](https://www.aclweb.org/anthology/N19-1423/). Empirical results show that BeeSL's speed and accuracy makes it a viable approach for large-scale real-world scenarios. For more information on ongoing work on biomedical information extraction, visit the [COSBI prototypes](https://www.cosbi.eu/research/prototypes/biomedical_knowledge_extraction) page.
 
-1. [How does BeeSL work in short?](#how-does-beesl-work-in-short)
-2. [Installation and requirements](#installation-and-requirements)
-3. [System usage](#system-usage)
-  1. [Prediction](#prediction)
-  2. [Training](#training)
+1. [BeeSL in short](#how-does-beesl-work-in-short)
+2. [Installation](#installation)
+3. [Usage](#system-usage)
+  1. [Event detection (prediction)](#event-detection-prediction)
+  2. [Training a new model](#training-a-new-model)
 4. [Data and configuration files](#data-and-configuration-files)
   1. [Token-level data format](#token-level-data-format)
   2. [Configuration files format](#configuration-files-format)
@@ -17,7 +17,7 @@ We recast Biomedical Event Extraction as Sequence Labeling (**BeeSL**), taking a
 
 
 
-## How does BeeSL work in short?
+# How does BeeSL work in short?
 
 **1) Encoding of biomedical events into a sequence of labels**
 
@@ -35,14 +35,7 @@ The labels for the token sequences are predicted using a neural architecture emp
 
 
 
-## Installation and requirements
-
-This section provides a guide on how to install BeeSL.
-
-> If you want skip the details and save time with a ready-to-use system, please skip this part and download the whole [blob package]() (coming soon) instead. Then you can straightly go to [system usage](#system-usage). Note that incompatibilities can occur in this facilitated version.
-
-
-**1) Set the environment and install the requirements**
+# Installation
 
 It is recommended to install an environment management system (e.g., [miniconda3](https://docs.conda.io/en/latest/miniconda.html)) to avoid conflicts with other programs. After installing miniconda3, create the environment and install the requirements:
 ```
@@ -51,8 +44,7 @@ conda create --name beesl-env python=3.7  # create an python 3.7 env called bees
 conda activate beesl-env                  # activate the environment
 python -m pip install -r requirements.txt # install the packages from requirements.txt
 ```
-
-**2) Download the pre-trained model and data**
+**NOTE**: we have tried hard, but there is no easy way to ship the installation of conda across operating systems and users, therefore this step is a necessary manual operation to do.
 
 Download the pre-trained `BioBERT-Base v1.1 (+ PubMed 1M)` model from [here](https://github.com/dmis-lab/biobert "here") and run:
 ```
@@ -60,28 +52,33 @@ Download the pre-trained `BioBERT-Base v1.1 (+ PubMed 1M)` model from [here](htt
 tar xC models -f $DOWNLOAD_DIR/biobert_v1.1_pubmed.tar.gz 
 pytorch_transformers bert models/biobert_v1.1_pubmed/model.ckpt-1000000 models/biobert_v1.1_pubmed/bert_config.json models/biobert_v1.1_pubmed/pytorch_model.bin
 rm models/biobert_v1.1_pubmed/model.ckpt*
-
-# Download the GENIA event data
+```
+Download the GENIA event data
+```
 sh download_data.sh
-# Download the trained BeeSL model described in the paper 
+```
+Download the trained BeeSL model described in the paper and place it 
+```
 curl -O https://www.cosbi.eu/fx/2354/model.tar.gz
 ```
 
-Done! You now have everything you need to [use the system](#system-usage)!
+Done! You now have everything to move to next sestion of using the system.
 
 
 
-## System usage
+# Usage
 
-This section outlines how to use BeeSL to [predict](#prediction) new data, and to [train](#training) a new model. 
+While this is a research product, the quality reached by the systems makes it suitable to be used in real settings for [event detection](#prediction) and [training of new models of your own](#training). 
 
 
-### Prediction
+## Event detection (prediction)
 
-In order to predict biomedical events, just run:
+In order to predict biomedical events, run:
 ```
 python predict.py $PATH_TO_MODEL $INPUT_FILE $OUTPUT_FILE --device $DEVICE
 ```
+
+The arguments are
 * `$PATH_TO_MODEL`: a serialized model fine-tuned on biomedical events
   * e.g., `$BEESL_DIR/model.tar.gz` you just downloaded, or a model you previously trained (see [how to do it](#training))
 * `$INPUT_FILE`: a filepath with data into a token-level format with entities masked (details on the format [here](#details-on-the-format))
@@ -89,7 +86,7 @@ python predict.py $PATH_TO_MODEL $INPUT_FILE $OUTPUT_FILE --device $DEVICE
 * `$OUTPUT_FILE`: a filepath where to write the predictions of events
 * `$DEVICE`: a device where to run the inference (i.e., CPU: `-1`, GPU: `0`, `1`, ...)
 
-To convert the token-level predictions back to the format for events, just run:
+To convert the token-level predictions to a standard event format use:
 ```
 # Merge predicted label parts, and convert them back to the BioNLP standoff format
 python bio-mergeBack.py $PRED_FILE $INPUT_FILE 2 > $MERGED_PRED_FILE
@@ -99,7 +96,9 @@ python bioscripts/postprocess.py --filepath $MERGED_PRED_FILE
 - `$INPUT_FILE`: a filepath with data into a token-level format with entities not masked
 - `$MERGED_PRED_FILE`: a filepath containing the resulting merged predictions
 
-Predicted event files in the standard [BioNLP standoff format](http://2011.bionlp-st.org/home/file-formats) will be created in `$BEESL_DIR/output`. To evaluate the prediction performance on the GENIA test set, compress the results `cd $BEESL_DIR/output/ && tar -czf predictions.tar.gz *.a2` and submit `predictions.tar.gz` to the official [GENIA online evaluation service](http://bionlp-st.dbcls.jp/GE/2011/eval-test/).
+Predicted event files in the standard [BioNLP standoff format](http://2011.bionlp-st.org/home/file-formats) will be created in `$BEESL_DIR/output`.
+
+To evaluate the prediction performance on the GENIA test set, compress the results `cd $BEESL_DIR/output/ && tar -czf predictions.tar.gz *.a2` and submit `predictions.tar.gz` to the official [GENIA online evaluation service](http://bionlp-st.dbcls.jp/GE/2011/eval-test/).
 
 
 ### Training
