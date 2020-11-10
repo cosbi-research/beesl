@@ -3,12 +3,12 @@
 if [ $# -ne 4 ]; then
     echo
     echo "Execute from beesl project home. Exactly 4 args are required:"
-    echo "  arg1 = model json path"
-    echo "  arg2 = training data json path"
-    echo "  arg3 = validation folder path"
-    echo "  arg4 = testing file path"
+    echo "  arg1 = model JSON path"
+    echo "  arg2 = training data JSON path"
+    echo "  arg3 = validation FOLDER path"
+    echo "  arg4 = testing TOKEN FILE path"
     echo 
-    echo "Multiple training data and models can be given separated by ':'"
+    echo "Multiple models and training datasets can be given separated by ':'"
     echo
     echo "Eg1 ./run_training.sh config/cosbi-biobert-base-params.json              \\"
     echo "                      config/base-genia.json                             \\"
