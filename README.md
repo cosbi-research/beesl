@@ -52,10 +52,13 @@ Download the GENIA event data with our automatized script:
 ```
 sh download_data.sh
 ```
-Download the BeeSL model described in the [paper](#reference-and-contact). Place the model in beesl/models/beesl-model/. In that folder you may later place your [own trained models](#training-a-new-model). The models are declared in the file config/params.json, setting the parameter `pretrained_model`. The provided [`config/params.json`](config/params.json) already references the model at that path. If you place the model somewhere else, make sure to update the configuration.
+Download the BeeSL model described in the [paper](#reference-and-contact).
 ```
 curl -O https://www.cosbi.eu/fx/2354/model.tar.gz
 ```
+#### Installing the predictive model
+Place the downloaded model https://www.cosbi.eu/fx/2354/model.tar.gz in `beesl/models/beesl-model/`. In that folder you may later place your [own trained models](#training-a-new-model). The models are declared in the file config/params.json, setting the parameter `pretrained_model`. The provided [`config/params.json`](config/params.json) already references the model at that path. If you place the model somewhere else, make sure to update the configuration.
+
 
 You now have everything in place and are ready to start using the system.
 
@@ -108,7 +111,7 @@ python train.py --name $NAME --dataset_config $DATASET_CONFIG --parameters_confi
   * e.g., `$BEESL_DIR/config/params.json` we provide (recommended), or your own one
 * `$DEVICE`: a device where to run the training (i.e., CPU: `-1`, GPU: `0`, `1`, ...)
 
-The serialized model will be stored in `beesl/logs/$NAME/$DATETIME/model.tar.gz`, where `$DATETIME` is a folder to disambiguate multiple executions with the same `$NAME`. A performance report will be in `beesl/logs/$NAME/$DATETIME/results.txt`. To use your newly trained model to [predict](#event-detection-prediction) new data see instruction in the [installation](#installation) section.
+The serialized model will be stored in `beesl/logs/$NAME/$DATETIME/model.tar.gz`, where `$DATETIME` is a folder to disambiguate multiple executions with the same `$NAME`. A performance report will be in `beesl/logs/$NAME/$DATETIME/results.txt`. To use your newly trained model to [predict](#event-detection-prediction) new data see the [installation instructions](#installing-the-predictive-model) above.
 
 
 
