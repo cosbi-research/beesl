@@ -57,7 +57,7 @@ Download the BeeSL model described in the [paper](#reference-and-contact). Place
 curl -O https://www.cosbi.eu/fx/2354/model.tar.gz
 ```
 
-Done! You now have everything to move to next sestion of using the system.
+You now have everything in place and are ready to start using the system.
 
 
 
