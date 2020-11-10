@@ -9,7 +9,7 @@ For more information on ongoing work on biomedical information extraction you ma
 - [How does BeeSL work (in short)?](#how-does-beesl-work)
 - [Installation](#installation)
 - [Usage](#usage)
-  + [Event detection (prediction)](#event-detection-prediction)
+  + [Event extraction (prediction)](#event-extraction-prediction)
   + [Training a new model](#training-a-new-model)
 - [Configuration and formats](#configuration-and-formats)
 - [Reference](#reference-and-contact)
@@ -69,9 +69,9 @@ You now have everything in place and are ready to start using the system.
 While this is a research product, the quality reached by the system makes it suitable to be used in real settings for [event detection](#event-detection-prediction) and [training new models](#training-a-new-model) of your own. 
 
 
-## Event detection (prediction)
+## Event extraction (prediction)
 
-In order to predict biomedical events, run:
+In order to detect biomedical events in your texts, run:
 ```
 python predict.py $PATH_TO_MODEL $INPUT_FILE $OUTPUT_FILE --device $DEVICE
 ```
@@ -111,7 +111,7 @@ python train.py --name $NAME --dataset_config $DATASET_CONFIG --parameters_confi
   * e.g., `$BEESL_DIR/config/params.json` we provide (recommended), or your own one
 * `$DEVICE`: a device where to run the training (i.e., CPU: `-1`, GPU: `0`, `1`, ...)
 
-The serialized model will be stored in `beesl/logs/$NAME/$DATETIME/model.tar.gz`, where `$DATETIME` is a folder to disambiguate multiple executions with the same `$NAME`. A performance report will be in `beesl/logs/$NAME/$DATETIME/results.txt`. To use your newly trained model to [predict](#event-detection-prediction) new data see the [installation instructions](#installing-the-predictive-model) above.
+The serialized model will be stored in `beesl/logs/$NAME/$DATETIME/model.tar.gz`, where `$DATETIME` is a folder to disambiguate multiple executions with the same `$NAME`. A performance report will be in `beesl/logs/$NAME/$DATETIME/results.txt`. To use your newly trained model to [predict](#event-extraction-prediction) new data see the [installation instructions](#installing-the-predictive-model) above.
 
 
 
