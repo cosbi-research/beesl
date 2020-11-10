@@ -23,9 +23,9 @@ Biomedical events are structured representations which comprise multiple informa
 - `h` (*head*): the type and the relative position of the event the token refers to (of which it is an argument)
 
 ![encoding](resources/encoding.png)
-**Figure 1**: *Top: a text excerpt with four biomedical events. Above the text (italicized), mentions (triggers inside rounded boxes, and entities without rounded boxes) and argument roles are indicated. Bottom: our proposed encoding, where d, r and h represent the label parts for dependents, relations, and heads, respectively. See the [paper]() for more details.*
+**Figure 1**: *Top: a text excerpt with four biomedical events. Above the text (italicized), mentions (triggers inside rounded boxes, and entities without rounded boxes) and argument roles are indicated. Bottom: our proposed encoding, where d, r and h represent the label parts for dependents, relations, and heads, respectively. See the [paper](https://www.researchgate.net/publication/344541520_Biomedical_Event_Extraction_as_Sequence_Labeling) for more details.*
 
-At this point any token may then have multiple associated labels. We recast event extraction as a sequence labeling task and, adopting a system thinking approach, we design a multi-label aware encoding strategy for jointly modeling the intermediate tasks via multi-task learning.
+At this point we recast event extraction as a sequence labeling task as any token may have multiple associated labels. Adopting a system thinking approach, we design a multi-label aware encoding strategy for jointly modeling the intermediate tasks via multi-task learning.
 
 After encoding events as a sequence of labels the labels for the token sequences are predicted using a neural architecture employing BERT as encoder. Dedicated classifiers for predicting the label parts (referred as tasks) are devised. Experimental results show that the best results are achieved by learning two tasks in a multi-task setup: `<d>` (with a single label classifier) and `<r,h>` (with a multi-label classifier, to capture the participation of the token into multiple events). The sequences are thus decoded to the original event representation (Figure 1, top part).
 
