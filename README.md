@@ -52,7 +52,7 @@ Download the GENIA event data with our automatized script:
 ```
 sh download_data.sh
 ```
-Download the BeeSL model described in the [paper](#reference-and-contact). Place the model in beesl/models/beesl-model/. In that folder you may later place your [own BERT-based models](#training). The models are declared in the file config/params.json, setting the parameter `pretrained_model`. The provided config.json already references the model at that path. If you place the model somewhere else, make sure to update the configuration.
+Download the BeeSL model described in the [paper](#reference-and-contact). Place the model in beesl/models/beesl-model/. In that folder you may later place your [own trained models](#training-a-new-model). The models are declared in the file config/params.json, setting the parameter `pretrained_model`. The provided config.json already references the model at that path. If you place the model somewhere else, make sure to update the configuration.
 ```
 curl -O https://www.cosbi.eu/fx/2354/model.tar.gz
 ```
