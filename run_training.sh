@@ -7,19 +7,20 @@ if [ $# -ne 4 ]; then
     echo "  arg2 = training data JSON path"
     echo "  arg3 = validation FOLDER path"
     echo "  arg4 = testing TOKEN FILE path"
-    echo 
-    echo "Multiple models and training datasets can be given separated by ':'"
     echo
     echo "Eg1 ./run_training.sh config/cosbi-biobert-base-params.json              \\"
     echo "                      config/base-genia.json                             \\"
     echo "                      data/corpora/GE11/dev                              \\"
     echo "                      data/GE11/not-masked/dev.mt.1"
+    echo 
+    echo "Multiple models and training datasets can be given separated by ':'"
+    echo
     echo "Eg2 ./run_training.sh conf/bert.json:conf/MSbert.json:conf/scibert.json  \\"
     echo "                      conf/genia.json:conf/epi.json                      \\"
     echo "                      data/corpora/GE11/dev                              \\"
     echo "                      data/GE11/not-masked/dev.mt.1"
-    echo "Experiment names will be auto-named as 'model_training_testing'"
     echo
+    echo "Experiment names will be auto-named as 'model_training_testing'"
     echo "REMEMBER: Activate ENV with 'conda activate beesl-env' prior to execution"
     echo
     exit 1
