@@ -137,7 +137,7 @@ The BeeSL file format makes explicit the sequence of labels proved to boost perf
 Here follows the specification:
 ```
 # doc_id = $DOC_ID
-$TOKEN_TEXT  $START-$END  $ENTITY_ID  $ENT_TYPE $EXTRA	$EXTRA  $LABEL(1)	...	$LABEL(n)
+$TOKEN_TEXT  $START-$END  $ENTITY_ID  $ENT_TYPE $EXTRA	$EXTRA    $LABEL(1)	...	$LABEL(n)
 ```
 - `$TOKEN_TEXT`: the text of the token (or a masked version, as described above)
 - `$START-$END`: the `start` and `end` offsets of the token with respect to the document
