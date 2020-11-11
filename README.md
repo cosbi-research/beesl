@@ -73,7 +73,7 @@ While this is a research product, the quality reached by the system makes it sui
 
 ## Event extraction (prediction)
 
-In order to detect biomedical events, run:
+To detect biomedical events, run:
 ```
 python predict.py $PATH_TO_MODEL $BEESL_INPUT_FILE $PREDICTIONS_FILE --device $DEVICE
 ```
