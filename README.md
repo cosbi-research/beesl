@@ -139,7 +139,13 @@ Here follows the specification:
 # doc_id = $DOC_ID
 $TOKEN_TEXT  $START-$END  $ENTITY_ID	$ENT_TYPE	$EXTRA	$EXTRA	      $LABEL(1)	...	$LABEL(n)
 ```
-And an excerpt of a [full example](data/GE11/masked/test.mt.1)
+- `$TOKEN_TEXT`: the text of the token (or a masked version, as described above)
+- `$START-$END`: the `start` and `end` offsets of the token with respect to the document
+- `$ENTITY_ID`: the entity id, if any. If not an entity, `O` is printed
+- `$ENT_TYPE`: the entity type, if any. If not an entity, `-` is printed
+- `$EXTRA`: any extra information (not needed for the computation)
+- `$LABEL(i)`: a label part. You can have many columns as the number of tasks, 3 in the example.
+And an excerpt of a [full example](data/GE11/masked/test.mt.1):
 ```
 # doc_id = PMC-1064873-00-TIAB
 Resistance   0-10         O           [ENT]-    [POS]NOUN [DEP]ROOT   O       O
@@ -169,14 +175,6 @@ $PROTEIN$    172-177   T5             [ENT]Protein [POS]NOUN [DEP]nsubjpass O   
 has          178-181   O              [ENT]-    [POS]AUX  [DEP]aux    O       O
 ...
 ```
-
-Where:
-- `$TOKEN_TEXT`: the text of the token (or a masked version, as described above)
-- `$START-$END`: the `start` and `end` offsets of the token with respect to the document
-- `$ENTITY_ID`: the entity id, if any. If not an entity, `O` is printed
-- `$ENT_TYPE`: the entity type, if any. If not an entity, `-` is printed
-- `$EXTRA`: any extra information (not needed for the computation)
-- `$LABEL(i)`: a label part. You can have many columns as the number of tasks, 3 in the example.
 
 ## Configuration files
 
