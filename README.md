@@ -134,17 +134,15 @@ The BeeSL file format makes explicit the sequence of labels proved to boost perf
 Here follows the specification:
 ```
 # doc_id = $DOC_ID
-$TOKEN_TEXT	$START-$END	$ID	$ENTITY_TYPE	$EXTRA	$EXTRA	$LABEL(1)	...	$LABEL(n)
+$TOKEN_TEXT $START-$END	$ENTITY_ID	$ENTITY_TYPE	$EXTRA	$EXTRA	$LABEL(1)	...	$LABEL(n)
 ...
 <EMPTY_LINE>
 ```
 
-- `$DOC_ID`: the identifier of the document
 - `$TOKEN_TEXT`: the text of the token (or a masked version, as described above)
-- `$START`: the start offset of the token with respect to the document
-- `$END`: the end offset of the token with respect to the document
-- `$ID`: the entity id, if any. If not, `O` is printed
-- `$ENT_TYPE`: the entity type, if any. If not, `-` is printed
+- `$START-$END`: the `start` and `end` offsets of the token with respect to the document
+- `$ENTITY_ID`: the entity id, if any. If not an entity, `O` is printed
+- `$ENT_TYPE`: the entity type, if any. If not an entity, `-` is printed
 - `$EXTRA`: any extra information (not needed for the computation)
 - `$LABEL(i)`: a label part. You can have many columns as the number of tasks
 
@@ -152,24 +150,24 @@ And an excerpt of a [full example](data/GE11/masked/test.mt.1)
 ```
 # doc_id = PMC-1064873-00-TIAB
 Resistance      0-10    O       [ENT]-  [POS]NOUN       [DEP]ROOT       O       O
-to      11-13   O       [ENT]-  [POS]PART       [DEP]case       O       O
+to              11-13   O       [ENT]-  [POS]PART       [DEP]case       O       O
 $PROTEIN$       14-19   T1      [ENT]Protein    [POS]NOUN       [DEP]compound   O       O
 inhibition      20-30   O       [ENT]-  [POS]NOUN       [DEP]nmod       O       O
-of      31-33   O       [ENT]-  [POS]ADP        [DEP]case       O       O
+of              31-33   O       [ENT]-  [POS]ADP        [DEP]case       O       O
 $PROTEIN$       34-50   T2      [ENT]Protein    [POS]NOUN       [DEP]compound   O       O
 production      51-61   O       [ENT]-  [POS]NOUN       [DEP]nmod       O       O
-and     62-65   O       [ENT]-  [POS]CCONJ      [DEP]cc O       O
+and             62-65   O       [ENT]-  [POS]CCONJ      [DEP]cc O       O
 expression      66-76   O       [ENT]-  [POS]NOUN       [DEP]conj       O       O
-of      77-79   O       [ENT]-  [POS]ADP        [DEP]case       O       O
+of              77-79   O       [ENT]-  [POS]ADP        [DEP]case       O       O
 $PROTEIN$       80-114  T3      [ENT]Protein    [POS]NOUN       [DEP]nmod       O       O
-in      115-117 O       [ENT]-  [POS]ADP        [DEP]case       O       O
+in              115-117 O       [ENT]-  [POS]ADP        [DEP]case       O       O
 $PROTEIN$       118-121 T4      [ENT]Protein    [POS]NOUN       [DEP]compound   O       O
-+       121-122 O       [ENT]-  [POS]CCONJ      [DEP]cc O       O
-T       123-124 O       [ENT]-  [POS]NOUN       [DEP]conj       O       O
-cells   125-130 O       [ENT]-  [POS]NOUN       [DEP]nmod       O       O
-from    131-135 O       [ENT]-  [POS]ADP        [DEP]case       O       O
++               121-122 O       [ENT]-  [POS]CCONJ      [DEP]cc O       O
+T               123-124 O       [ENT]-  [POS]NOUN       [DEP]conj       O       O
+cells           125-130 O       [ENT]-  [POS]NOUN       [DEP]nmod       O       O
+from            131-135 O       [ENT]-  [POS]ADP        [DEP]case       O       O
 patients        136-144 O       [ENT]-  [POS]NOUN       [DEP]nmod       O       O
-with    145-149 O       [ENT]-  [POS]ADP        [DEP]case       O       O
+with            145-149 O       [ENT]-  [POS]ADP        [DEP]case       O       O
 rheumatoid      150-160 O       [ENT]-  [POS]ADJ        [DEP]amod       O       O
 arthritis       161-170 O       [ENT]-  [POS]NOUN       [DEP]nmod       O       O
 
