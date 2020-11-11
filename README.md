@@ -68,7 +68,7 @@ You now have everything in place and are ready to start using the system.
 
 # Usage
 
-While this is a research product, the quality reached by the system makes it suitable to be used in real research settings for [event detection](#event-detection-prediction) and [training new models](#training-a-new-model) of your own. 
+While this is a research product, the quality reached by the system makes it suitable to be used in real research settings for [event detection](#event-extraction-prediction) and [training new models](#training-a-new-model) of your own. 
 
 
 ## Event extraction (prediction)
