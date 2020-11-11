@@ -129,7 +129,7 @@ python bioscripts/preprocess.py --corpus $CORPUS_FOLDER --masking no
 
 The masking is used during training and evaluation to avoid overfitting to word types during training (argument `type` e.g. `$PROTEIN` in the example below) and to ensure the correct evaluation of entity arguments (the argument `no`).
 
-For event extraction (no traininng nor evaluation) `{{TODO}}`
+For event extraction (no training nor evaluation) `{{TODO}}`
 
 **Details on the BeeSL file format**
 The BeeSL file format makes explicit the sequence of labels proved to boost perfomances. Each sentence starts with a header `doc_id = $DOC_ID` denoting the sentence identifier. All sentence tokens are then placed one per line. An empty line follows the last token. Note that senteces can be at most 768 tokens long as per BERT model input.
