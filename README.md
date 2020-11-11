@@ -85,6 +85,8 @@ The arguments are
 * `$PREDICTIONS_FILE`: the predictions of events in BeeSL format
 * `$DEVICE`: a device where to run the inference (i.e., CPU: `-1`, GPU: `0`, `1`, ...)
 
+To collect the detected event parts and text portions `{{TODO}}`
+
 The following two lines will create the folder `output/` in the BeeSL root project populated with the predictions in [BioNLP standoff format](http://2011.bionlp-st.org/home/file-formats):
 
 ```
@@ -118,15 +120,16 @@ The serialized model will be stored in `beesl/logs/$NAME/$DATETIME/model.tar.gz`
 
 ## BeeSL data format
 
-Biomedical events are commonly defined using the standard [BioNLP standoff format](http://2011.bionlp-st.org/home/file-formats). To convert the BioNLP standoff biomedical events format into BeeSL format, run:
+Biomedical events are commonly defined using the standard [BioNLP standoff format](http://2011.bionlp-st.org/home/file-formats). To convert the BioNLP standoff biomedical events format into BeeSL format, run the two commands:
 ```
-python bioscripts/preprocess.py --corpus $CORPUS_FOLDER --masking $MASKING
+python bioscripts/preprocess.py --corpus $CORPUS_FOLDER --masking type
+python bioscripts/preprocess.py --corpus $CORPUS_FOLDER --masking no
 ```
-- `$CORPUS_FOLDER`: the folder name in `$BEESL_DIR/data/corpora/` containing biomedical events in the standard BioNLP standoff format
-  + e.g., `GE11` you just downloaded, or your standard BioNLP standoff formatted corpus
-- `$MASKING`: the masking of entity. You need to run for both `no` and `type` values
-  + `type` means masking the token with the entity type text placeholder (to avoid overfitting to words during training)
-  + `no` is used during evaluation only (to ensure the correct evaluation of entity arguments)
+`$CORPUS_FOLDER` is the folder in `$BEESL_DIR/data/corpora/` containing biomedical events in the standard BioNLP standoff format, e.g., `GE11` you just downloaded.
+
+The masking is used during training and evaluation to avoid overfitting to word types during training (argument `type` e.g. `$PROTEIN` in the example below) and to ensure the correct evaluation of entity arguments (the argument `no`).
+
+For event extraction (no traininng nor evaluation) `{{TODO}}`
 
 **Details on the BeeSL file format**
 The BeeSL file format makes explicit the sequence of labels proved to boost perfomances. Each sentence starts with a header `doc_id = $DOC_ID` denoting the sentence identifier. All sentence tokens are then placed one per line. An empty line follows the last token. Note that senteces can be at most 768 tokens long as per BERT model input.
