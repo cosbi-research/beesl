@@ -13,7 +13,7 @@ For more information on ongoing work on biomedical information extraction you ma
 - [Usage](#usage)
   + [Event extraction (prediction)](#event-extraction-prediction)
   + [Training a new model](#training-a-new-model)
-- [Configuration and formats](#configuration-and-formats)
+- [File formats and configuration](#file-formats-and-configuration)
 - [Reference](#reference-and-contact)
 
 
@@ -75,26 +75,26 @@ While this is a research product, the quality reached by the system makes it sui
 
 In order to detect biomedical events, run:
 ```
-python predict.py $PATH_TO_MODEL $INPUT_FILE $OUTPUT_FILE --device $DEVICE
+python predict.py $PATH_TO_MODEL $BEESL_INPUT_FILE $PREDICTIONS_FILE --device $DEVICE
 ```
 
 The arguments are
 * `$PATH_TO_MODEL`: a serialized model fine-tuned on biomedical events, for example the one provided above at https://www.cosbi.eu/fx/2354/model.tar.gz.
-* `$INPUT_FILE`: a BeeSL format with entities masked (see [how to make it](#beesl-data-format))
+* `$BEESL_INPUT_FILE`: a BeeSL format with entities masked (see [how to make it](#beesl-data-format))
   * e.g., the provided [`$BEESL_DIR/data/GE11/masked/test.mt.1`](data/GE11/masked/test.mt.1).
-* `$OUTPUT_FILE`: where to write the predictions of events in BeeSL format
+* `$PREDICTIONS_FILE`: the predictions of events in BeeSL format
 * `$DEVICE`: a device where to run the inference (i.e., CPU: `-1`, GPU: `0`, `1`, ...)
 
-To convert the BeeSL predictions into a file `$MERGED_PRED_FILE` in standard *BioNLP standoff* format use:
+To have the BeeSL predictions converted in standard [BioNLP standoff format](http://2011.bionlp-st.org/home/file-formats), type:
 
 ```
-# Merge predicted label parts first
-python bio-mergeBack.py $OUTPUT_FILE $INPUT_FILE 2 > $MERGED_PRED_FILE
+# Merge predicted labels
+python bio-mergeBack.py $PREDICTIONS_FILE $BEESL_INPUT_FILE 2 > $PREDICTIONS_NOT_MASKED
 # Convert them back to the BioNLP standoff format
-python bioscripts/postprocess.py --filepath $MERGED_PRED_FILE
+python bioscripts/postprocess.py --filepath $PREDICTIONS_NOT_MASKED
 ```
 
-Predicted event files in the standard [BioNLP standoff format](http://2011.bionlp-st.org/home/file-formats) will be created in `$BEESL_DIR/output`.
+The two lines above will create the results in the folder `output` right under the BeeSL root project.
 
 To evaluate the prediction performance on the GENIA test set, compress the results `cd $BEESL_DIR/output/ && tar -czf predictions.tar.gz *.a2` and submit `predictions.tar.gz` to the official [GENIA online evaluation service](http://bionlp-st.dbcls.jp/GE/2011/eval-test/).
 
@@ -116,8 +116,7 @@ The serialized model will be stored in `beesl/logs/$NAME/$DATETIME/model.tar.gz`
 
 
 
-# Configuration and formats
-
+# File formats and configuration
 
 ## BeeSL data format
 
