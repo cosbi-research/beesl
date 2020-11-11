@@ -80,8 +80,7 @@ python predict.py $PATH_TO_MODEL $BEESL_INPUT_FILE $PREDICTIONS_FILE --device $D
 
 The arguments are
 * `$PATH_TO_MODEL`: a serialized model fine-tuned on biomedical events, for example the one provided above at https://www.cosbi.eu/fx/2354/model.tar.gz.
-* `$BEESL_INPUT_FILE`: a BeeSL format with entities masked (see [how to make it](#beesl-data-format))
-  * e.g., the provided [`$BEESL_DIR/data/GE11/masked/test.mt.1`](data/GE11/masked/test.mt.1).
+* `$BEESL_INPUT_FILE`: a BeeSL format with entities masked (see [how to make it](#beesl-data-format)). For example the provided [`$BEESL_DIR/data/GE11/masked/test.mt.1`](data/GE11/masked/test.mt.1).
 * `$PREDICTIONS_FILE`: the predictions of events in BeeSL format
 * `$DEVICE`: a device where to run the inference (i.e., CPU: `-1`, GPU: `0`, `1`, ...)
 
