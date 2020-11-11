@@ -85,7 +85,7 @@ The arguments are
 * `$PREDICTIONS_FILE`: the predictions of events in BeeSL format
 * `$DEVICE`: a device where to run the inference (i.e., CPU: `-1`, GPU: `0`, `1`, ...)
 
-To have the BeeSL predictions converted in standard [BioNLP standoff format](http://2011.bionlp-st.org/home/file-formats), type:
+The following two lines will create the folder `output/` in the BeeSL root project populated with the predictions in [BioNLP standoff format](http://2011.bionlp-st.org/home/file-formats):
 
 ```
 # Merge predicted labels
@@ -93,8 +93,6 @@ python bio-mergeBack.py $PREDICTIONS_FILE $BEESL_INPUT_FILE 2 > $PREDICTIONS_NOT
 # Convert them back to the BioNLP standoff format
 python bioscripts/postprocess.py --filepath $PREDICTIONS_NOT_MASKED
 ```
-
-The two lines above will create the results in the folder `output` right under the BeeSL root project.
 
 To evaluate the prediction performance on the GENIA test set, compress the results `cd $BEESL_DIR/output/ && tar -czf predictions.tar.gz *.a2` and submit `predictions.tar.gz` to the official [GENIA online evaluation service](http://bionlp-st.dbcls.jp/GE/2011/eval-test/).
 
