@@ -81,19 +81,18 @@ python predict.py $PATH_TO_MODEL $INPUT_FILE $OUTPUT_FILE --device $DEVICE
 The arguments are
 * `$PATH_TO_MODEL`: a serialized model fine-tuned on biomedical events, for example the one provided above at https://www.cosbi.eu/fx/2354/model.tar.gz.
 * `$INPUT_FILE`: a BeeSL format with entities masked (see [how to make it](#details-on-the-beesl-format))
-  * e.g., `$BEESL_DIR/data/GE11/masked/test.mt.1` we provide, or your own data ([details on the format](#standard-token-level-data-format))
-* `$OUTPUT_FILE`: a filepath where to write the predictions of events
+  * e.g., `$BEESL_DIR/data/GE11/masked/test.mt.1` we provide.
+* `$OUTPUT_FILE`: where to write the predictions of events in BeeSL format
 * `$DEVICE`: a device where to run the inference (i.e., CPU: `-1`, GPU: `0`, `1`, ...)
 
-To convert the token-level predictions to a standard event format use:
+To convert the BeeSL predictions into a file `$MERGED_PRED_FILE` in standard Standoff format use:
+
 ```
-# Merge predicted label parts, and convert them back to the BioNLP standoff format
-python bio-mergeBack.py $PRED_FILE $INPUT_FILE 2 > $MERGED_PRED_FILE
+# Merge predicted label parts first
+python bio-mergeBack.py $OUTPUT_FILE $INPUT_FILE 2 > $MERGED_PRED_FILE
+# Convert them back to the BioNLP standoff format
 python bioscripts/postprocess.py --filepath $MERGED_PRED_FILE
 ```
-- `$PRED_FILE`: a filepath containing predictions (i.e., the `$OUTPUT_FILE` above)
-- `$INPUT_FILE`: a filepath with data into a token-level format with entities not masked
-- `$MERGED_PRED_FILE`: a filepath containing the resulting merged predictions
 
 Predicted event files in the standard [BioNLP standoff format](http://2011.bionlp-st.org/home/file-formats) will be created in `$BEESL_DIR/output`.
 
@@ -120,20 +119,19 @@ The serialized model will be stored in `beesl/logs/$NAME/$DATETIME/model.tar.gz`
 # Configuration and formats
 
 
-## Standard token-level data format
+## BeeSL data format
 
 Biomedical events are defined using the standard [BioNLP standoff format](http://2011.bionlp-st.org/home/file-formats). To encode biomedical events from the BioNLP standoff format into sequences of labels for BeeSL, run the following:
 ```
 python bioscripts/preprocess.py --corpus $CORPUS_FOLDER --masking $MASKING
 ```
 - `$CORPUS_FOLDER`: the folder name in `$BEESL_DIR/data/corpora/` containing biomedical events in the standard BioNLP standoff format
-  - e.g., `GE11` you just downloaded, or your standard BioNLP standoff formatted corpus
+  + e.g., `GE11` you just downloaded, or your standard BioNLP standoff formatted corpus
 - `$MASKING`: the masking of entity. You need to run for both `no` and `type` values
-  - `type` means masking the token with the entity type text placeholder (to avoid overfitting to words during training), whereas `no` is used during evaluation only (to ensure the correct evaluation of entity arguments)
+  + `type` means masking the token with the entity type text placeholder (to avoid overfitting to words during training)
+  + `no` is used during evaluation only (to ensure the correct evaluation of entity arguments)
 
-### Details on the BeeSL format
-
-The token-level file format has the following shape, where each sentence has an header `doc_id = $DOC_ID` indicating the document id, and all its tokens are on new lines (with token information on columns, described below). Finally, an empty newline follows the last token (see this [token-level file example](data/GE11/masked/test.mt.1) for more information):
+The BeeSL token-level file format encodes each sentence with an header `doc_id = $DOC_ID` denoting the document id. Note that senteces can be at most 768 tokes long as per BERT model input. All the tokens are then placed one per line. Finally, an empty line follows the last token. The full specification follows:
 ```
 # doc_id = $DOC_ID
 $TOKEN_TEXT	$START-$END	$ID	$ENTITY_TYPE	$EXTRA	$EXTRA	$LABEL(1)	...	$LABEL(n)
@@ -148,6 +146,8 @@ $TOKEN_TEXT	$START-$END	$ID	$ENTITY_TYPE	$EXTRA	$EXTRA	$LABEL(1)	...	$LABEL(n)
 - `$ENT_TYPE`: the entity type, if any. If not, `-` is printed
 - `$EXTRA`: any extra information (not needed for the computation)
 - `$LABEL(i)`: a label part. You can have many columns as the number of tasks
+
+And a [full example](data/GE11/masked/test.mt.1)
 
 
 ## Configuration files
