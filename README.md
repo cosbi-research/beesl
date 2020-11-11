@@ -131,8 +131,7 @@ python bioscripts/preprocess.py --corpus $CORPUS_FOLDER --masking $MASKING
 **Details on the BeeSL file format**
 The BeeSL file format makes explicit the sequence of labels proved to boost perfomances. Each sentence starts with a header `doc_id = $DOC_ID` denoting the sentence identifier. All sentence tokens are then placed one per line. An empty line follows the last token. Note that senteces can be at most 768 tokens long as per BERT model input.
 
-See a [full example](data/GE11/masked/test.mt.1) of the specification, that follows:
-
+Here follows the specification:
 ```
 # doc_id = $DOC_ID
 $TOKEN_TEXT	$START-$END	$ID	$ENTITY_TYPE	$EXTRA	$EXTRA	$LABEL(1)	...	$LABEL(n)
@@ -149,6 +148,36 @@ $TOKEN_TEXT	$START-$END	$ID	$ENTITY_TYPE	$EXTRA	$EXTRA	$LABEL(1)	...	$LABEL(n)
 - `$EXTRA`: any extra information (not needed for the computation)
 - `$LABEL(i)`: a label part. You can have many columns as the number of tasks
 
+And an excerpt of a [full example](data/GE11/masked/test.mt.1)
+```
+# doc_id = PMC-1064873-00-TIAB
+Resistance      0-10    O       [ENT]-  [POS]NOUN       [DEP]ROOT       O       O
+to      11-13   O       [ENT]-  [POS]PART       [DEP]case       O       O
+$PROTEIN$       14-19   T1      [ENT]Protein    [POS]NOUN       [DEP]compound   O       O
+inhibition      20-30   O       [ENT]-  [POS]NOUN       [DEP]nmod       O       O
+of      31-33   O       [ENT]-  [POS]ADP        [DEP]case       O       O
+$PROTEIN$       34-50   T2      [ENT]Protein    [POS]NOUN       [DEP]compound   O       O
+production      51-61   O       [ENT]-  [POS]NOUN       [DEP]nmod       O       O
+and     62-65   O       [ENT]-  [POS]CCONJ      [DEP]cc O       O
+expression      66-76   O       [ENT]-  [POS]NOUN       [DEP]conj       O       O
+of      77-79   O       [ENT]-  [POS]ADP        [DEP]case       O       O
+$PROTEIN$       80-114  T3      [ENT]Protein    [POS]NOUN       [DEP]nmod       O       O
+in      115-117 O       [ENT]-  [POS]ADP        [DEP]case       O       O
+$PROTEIN$       118-121 T4      [ENT]Protein    [POS]NOUN       [DEP]compound   O       O
++       121-122 O       [ENT]-  [POS]CCONJ      [DEP]cc O       O
+T       123-124 O       [ENT]-  [POS]NOUN       [DEP]conj       O       O
+cells   125-130 O       [ENT]-  [POS]NOUN       [DEP]nmod       O       O
+from    131-135 O       [ENT]-  [POS]ADP        [DEP]case       O       O
+patients        136-144 O       [ENT]-  [POS]NOUN       [DEP]nmod       O       O
+with    145-149 O       [ENT]-  [POS]ADP        [DEP]case       O       O
+rheumatoid      150-160 O       [ENT]-  [POS]ADJ        [DEP]amod       O       O
+arthritis       161-170 O       [ENT]-  [POS]NOUN       [DEP]nmod       O       O
+
+# doc_id = PMC-1064873-00-TIAB
+$PROTEIN$       172-177 T5      [ENT]Protein    [POS]NOUN       [DEP]nsubjpass  O       O
+has     178-181 O       [ENT]-  [POS]AUX        [DEP]aux        O       O
+...
+```
 
 ## Configuration files
 
