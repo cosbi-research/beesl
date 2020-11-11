@@ -80,12 +80,12 @@ python predict.py $PATH_TO_MODEL $INPUT_FILE $OUTPUT_FILE --device $DEVICE
 
 The arguments are
 * `$PATH_TO_MODEL`: a serialized model fine-tuned on biomedical events, for example the one provided above at https://www.cosbi.eu/fx/2354/model.tar.gz.
-* `$INPUT_FILE`: a BeeSL format with entities masked (see [how to make it](#details-on-the-beesl-format))
-  * e.g., `$BEESL_DIR/data/GE11/masked/test.mt.1` we provide.
+* `$INPUT_FILE`: a BeeSL format with entities masked (see [how to make it](#beesl-data-format))
+  * e.g., the provided [`$BEESL_DIR/data/GE11/masked/test.mt.1`](data/GE11/masked/test.mt.1).
 * `$OUTPUT_FILE`: where to write the predictions of events in BeeSL format
 * `$DEVICE`: a device where to run the inference (i.e., CPU: `-1`, GPU: `0`, `1`, ...)
 
-To convert the BeeSL predictions into a file `$MERGED_PRED_FILE` in standard Standoff format use:
+To convert the BeeSL predictions into a file `$MERGED_PRED_FILE` in standard *BioNLP standoff* format use:
 
 ```
 # Merge predicted label parts first
@@ -107,9 +107,9 @@ python train.py --name $NAME --dataset_config $DATASET_CONFIG --parameters_confi
 ```
 * `$NAME`: a name for the execution that will be used as folder where outputs will be stored
 * `$DATASET_CONFIG`: a filepath to a config file storing [task information](#dataset-configuration-file)
-  * e.g., `$BEESL_DIR/config/mt.1.mh.0.50.json` we provide (recommended), or your own one
+  * e.g., [`$BEESL_DIR/config/mt.1.mh.0.50.json`](config/mt.1.mh.0.50.json) we provide (recommended), or your own one
 * `$PARAMETERS_CONFIG`: a filepath to a config file storing [model parameters](#parameters-configuration-file)
-  * e.g., `$BEESL_DIR/config/params.json` we provide (recommended), or your own one
+  * e.g., [`$BEESL_DIR/config/params.json`](config/params.json) we provide (recommended), or your own one
 * `$DEVICE`: a device where to run the training (i.e., CPU: `-1`, GPU: `0`, `1`, ...)
 
 The serialized model will be stored in `beesl/logs/$NAME/$DATETIME/model.tar.gz`, where `$DATETIME` is a folder to disambiguate multiple executions with the same `$NAME`. A performance report will be in `beesl/logs/$NAME/$DATETIME/results.txt`. To use your newly trained model to [predict](#event-extraction-prediction) new data see the [installation instructions](#installing-the-predictive-model) above.
@@ -121,7 +121,7 @@ The serialized model will be stored in `beesl/logs/$NAME/$DATETIME/model.tar.gz`
 
 ## BeeSL data format
 
-Biomedical events are defined using the standard [BioNLP standoff format](http://2011.bionlp-st.org/home/file-formats). To encode biomedical events from the BioNLP standoff format into sequences of labels for BeeSL, run the following:
+Biomedical events are commonly defined using the standard [BioNLP standoff format](http://2011.bionlp-st.org/home/file-formats). To convert the BioNLP standoff biomedical events format into BeeSL format, run:
 ```
 python bioscripts/preprocess.py --corpus $CORPUS_FOLDER --masking $MASKING
 ```
@@ -131,11 +131,16 @@ python bioscripts/preprocess.py --corpus $CORPUS_FOLDER --masking $MASKING
   + `type` means masking the token with the entity type text placeholder (to avoid overfitting to words during training)
   + `no` is used during evaluation only (to ensure the correct evaluation of entity arguments)
 
-The BeeSL token-level file format encodes each sentence with an header `doc_id = $DOC_ID` denoting the document id. Note that senteces can be at most 768 tokes long as per BERT model input. All the tokens are then placed one per line. Finally, an empty line follows the last token. The full specification follows:
+**Details on the BeeSL file format**
+The BeeSL file format makes explicit the sequence of labels proved to boost perfomances. Each sentence starts with a header `doc_id = $DOC_ID` denoting the sentence identifier. All sentence tokens are then placed one per line. An empty line follows the last token. Note that senteces can be at most 768 tokens long as per BERT model input.
+
+See a [full example](data/GE11/masked/test.mt.1) of the specification, that follows:
+
 ```
 # doc_id = $DOC_ID
 $TOKEN_TEXT	$START-$END	$ID	$ENTITY_TYPE	$EXTRA	$EXTRA	$LABEL(1)	...	$LABEL(n)
 ...
+<EMPTY_LINE>
 ```
 
 - `$DOC_ID`: the identifier of the document
@@ -146,8 +151,6 @@ $TOKEN_TEXT	$START-$END	$ID	$ENTITY_TYPE	$EXTRA	$EXTRA	$LABEL(1)	...	$LABEL(n)
 - `$ENT_TYPE`: the entity type, if any. If not, `-` is printed
 - `$EXTRA`: any extra information (not needed for the computation)
 - `$LABEL(i)`: a label part. You can have many columns as the number of tasks
-
-And a [full example](data/GE11/masked/test.mt.1)
 
 
 ## Configuration files
