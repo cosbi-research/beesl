@@ -19,13 +19,13 @@ For more information on ongoing work in biomedical information extraction you ma
 
 # How does BeeSL work?
 
-Biomedical events are structured representations which comprise multiple information units (Figure 1, top part). We convert the event structures into a representation in which each token (roughly, word) is assigned labels summarizing its pertinent parts of the original event structure (Figure 1, bottom part), where:
-- `d` *=dependent*: the type of mention the token occurs in the sentence, either an *event trigger*, an *entity*, or *nothing*
-- `r` *=relation*: the argument role of the token (with respect to the event it is participating in)
-- `h` *=head*: the type and the relative position of the event the token refers to (of which it is an argument)
+Biomedical events are structured representations which comprise multiple information units (Figure 1, top part). We convert the event structures into a representation in which each token (roughly, word) is assigned the following community-agreed labels summarizing its pertinent parts of the original event structure (Figure 1, bottom part):
+- `d` *=dependent*: the type of mention the token assumes in the sentence, either an *event trigger*, an *entity*, or *nothing*;
+- `r` *=relation*: or, the thematic role the argument token is playing in the event it is participating in;
+- `h` *=head*: encodes the event's class and position the token refers to (i.e. of which it is an argument of)
 
 ![encoding](resources/encoding.png)
-**Figure 1**: *Top: a text excerpt with four biomedical events. Above the text (italicized), mentions (triggers inside rounded boxes, and entities without rounded boxes) and argument roles are indicated. Bottom: our proposed encoding, where d, r and h represent the label parts for dependents, relations, and heads, respectively. See the [paper](https://www.researchgate.net/publication/344541520_Biomedical_Event_Extraction_as_Sequence_Labeling) for more details.*
+**Figure 1**: *Top: an (italicized) text excerpt with four biomedical events. The mentions shown above the text are either (boxed) triggers or entities. The argument roles are on the edges. Bottom: our proposed encoding, for `d`-ependents, `r`-elations and `h`-eads represent the labels. See the [paper](https://www.researchgate.net/publication/344541520_Biomedical_Event_Extraction_as_Sequence_Labeling) for more details.*
 
 At this point we recast event extraction as a sequence labeling task as any token may have multiple associated labels. Adopting a system thinking approach, we design a multi-label aware encoding strategy for jointly modeling the intermediate tasks via multi-task learning.
 
