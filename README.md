@@ -29,7 +29,7 @@ Biomedical events are structured representations which comprise multiple informa
 
 At this point we recast event extraction as a sequence labeling task as any token may have multiple associated labels. Adopting a system thinking approach, we design a multi-label aware encoding strategy for jointly modeling the intermediate tasks via multi-task learning.
 
-After encoding events as a sequence of labels the labels for the token sequences are predicted using a neural architecture employing BERT as encoder. Dedicated classifiers for predicting the label parts (referred as tasks) are devised. Experimental results show that the best results are achieved by learning two tasks in a multi-task setup: a single label classifier for the `<d>`ependent and a multi-label classifier for relation and head `<r,h>` able to capture the participation of the same token into multiple events. The sequences are finally decoded to the original event representation (Figure 1, top part).
+After encoding events as a sequence of labels the labels for the token sequences are predicted using a neural architecture employing BERT as encoder. Dedicated classifiers for predicting the label parts (referred as tasks) are devised. Experimental results show that the best results are achieved by learning two tasks in a multi-task setup. A single label classifier for the `<d>`-ependent, and a multi-label classifier for `<r>`-elation and `<h>`-head `<r,h>` able to capture the participation of the same token into multiple events. The sequences are finally decoded to the original event representation (Figure 1, top part).
 
 
 # Installation
