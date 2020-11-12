@@ -22,10 +22,10 @@ For more information on ongoing work in biomedical information extraction you ma
 Biomedical events are structured representations which comprise multiple information units (Figure 1, above the line). We convert the event structures into a representation in which each token (roughly, word) is assigned the following community-agreed labels summarizing its pertinent parts of the original event structure (Figure 1, below the line):
 - `d` *=dependent*: the type of mention the token assumes in the sentence, either an *event trigger*, an *entity*, or *nothing*;
 - `r` *=relation*: or, *thematic role*, the argument token is playing in the event it is participating in;
-- `h` *=head*: encodes the meaning category and position of the event that token refers to.
+- `h` *=head*: the event initiator, is labelled with the meaning category and position of the event verb the token refers to.
 
 ![encoding](resources/encoding.png)
-**Figure 1**: *Above the dashed line: an (italicized) text excerpt with four biomedical events. The (boxed) triggers and entities represent the dependent mentions shown above the text. The argument roles are on the edges. Below the dashes: our proposed encoding, for `d`-ependents, `r`-elations and `h`-eads represent the labels. See the [paper](https://www.researchgate.net/publication/344541520_Biomedical_Event_Extraction_as_Sequence_Labeling) for more details.*
+**Figure 1**: *Above the dashed line: an (italicized) text excerpt with four biomedical events. The (boxed) triggers and entities represent the dependent mentions shown above the text. Thematic roles of arguments are on the edges. Below the dashes: our proposed encoding, for `d`-ependents, `r`-elations and `h`-eads represent the labels. See the [paper](https://www.researchgate.net/publication/344541520_Biomedical_Event_Extraction_as_Sequence_Labeling) for more details.*
 
 At this point we recast event extraction as a sequence labeling task as any token may have multiple associated labels. Adopting a system thinking approach, we design a multi-label aware encoding strategy for jointly modeling the intermediate tasks via multi-task learning.
 
