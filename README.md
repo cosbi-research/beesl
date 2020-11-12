@@ -25,7 +25,7 @@ Biomedical events are structured representations which comprise multiple informa
 - `h` *=head*: encodes the event's class and position the token refers to (i.e. of which it is an argument of)
 
 ![encoding](resources/encoding.png)
-**Figure 1**: *Top: an (italicized) text excerpt with four biomedical events. The mentions shown above the text are either (boxed) triggers or entities. The argument roles are on the edges. Bottom: our proposed encoding, for `d`-ependents, `r`-elations and `h`-eads represent the labels. See the [paper](https://www.researchgate.net/publication/344541520_Biomedical_Event_Extraction_as_Sequence_Labeling) for more details.*
+**Figure 1**: *Above the dashed line: an (italicized) text excerpt with four biomedical events. The mentions shown above the text are either (boxed) triggers or entities. The argument roles are on the edges. Below the dashes: our proposed encoding, for `d`-ependents, `r`-elations and `h`-eads represent the labels. See the [paper](https://www.researchgate.net/publication/344541520_Biomedical_Event_Extraction_as_Sequence_Labeling) for more details.*
 
 At this point we recast event extraction as a sequence labeling task as any token may have multiple associated labels. Adopting a system thinking approach, we design a multi-label aware encoding strategy for jointly modeling the intermediate tasks via multi-task learning.
 
