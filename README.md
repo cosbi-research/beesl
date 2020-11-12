@@ -213,4 +213,4 @@ If you use this work in your research paper, we provide the full citation detail
     url       = ""  % we will update this field when available
 }
 ```
-For any information or request please get in touch with the Cosbi Bioformatics lab led by lombardo@cosbi.eu. We'll be happy to help!
+For any information or request you may want to get in touch with the Cosbi Bioformatics lab led by lombardo@cosbi.eu. We'll be happy to help!
