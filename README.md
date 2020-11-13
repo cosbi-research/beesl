@@ -21,7 +21,7 @@ For more information on ongoing work in biomedical information extraction you ma
 
 Biomedical events are structured representations which comprise multiple information units (Figure 1, above the line). We encode such event structure into a representation in which each token (roughly, word) is assigned the following labels summarizing its pertinent parts of the original event structure (Figure 1, below the line):
 - **d**ependent or, *type of mention*, the token assumes in the event, either an *event trigger*, an *entity*, or *nothing*;
-- **r**elation or, *thematic role*, the argument token is playing in the event it is participating in;
+- **r**elation or, *thematic role*, the argument token is playing in the event;
 - **h**ead of an event is a verbal form; here, the event initiator is denoted as head with the event category and position (in tokens) of the event verb the initiator refers to.
 
 ![encoding](resources/encoding.png)
