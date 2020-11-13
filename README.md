@@ -20,9 +20,9 @@ For more information on ongoing work in biomedical information extraction you ma
 # How does BeeSL work?
 
 Biomedical events are structured representations which comprise multiple information units (Figure 1, above the line). We convert the event structures into a representation in which each token (roughly, word) is assigned the following community-agreed labels summarizing its pertinent parts of the original event structure (Figure 1, below the line):
-- `d`*-ependent*: the type of mention the token assumes in the sentence, either an *event trigger*, an *entity*, or *nothing*;
-- `r`*-elation*: or, *thematic role*, the argument token is playing in the event it is participating in;
-- `h`*-ead*: the event anchor, is labelled with the event category and position of the event verb the token refers to.
+- **d**-ependent*: the type of mention the token assumes in the sentence, either an *event trigger*, an *entity*, or *nothing*;
+- **r**-elation*: or, *thematic role*, the argument token is playing in the event it is participating in;
+- **h**-ead*: the event anchor, is labelled with the event category and position of the event verb the token refers to.
 
 ![encoding](resources/encoding.png)
 **Figure 1**: *Above the dashed line: an (italicized) text excerpt with four biomedical events. The (boxed) triggers and entities represent the dependent mentions shown above the text. Thematic roles of arguments are on the edges. Below the dashes: our proposed encoding, for `d`&#8209;ependents, `r`-elations and `h`-eads represent the labels. See the [paper](https://www.researchgate.net/publication/344541520_Biomedical_Event_Extraction_as_Sequence_Labeling) for more details.*
