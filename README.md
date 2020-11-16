@@ -74,9 +74,9 @@ The system was designed to be trained on data where specific words have been hid
 
 ## Event extraction (prediction)
 
-To detect biomedical events, run:
+To detect biomedical events:
 ```
-# convetion from BioNLP format and masking of "type" mentions
+# first, conversion from BioNLP format and masking of "type" mentions
 python bioscripts/preprocess.py --corpus $CORPUS_FOLDER --masking type
 ```
 `$CORPUS_FOLDER` is the folder in `$BEESL_DIR/data/corpora/` containing biomedical events in the standard [BioNLP standoff format](http://2011.bionlp-st.org/home/file-formats), e.g., `GE11` you just downloaded.
@@ -116,7 +116,7 @@ For example, if you want to evaluate the prediction performance on the GENIA tes
 
 To train a new model, type:
 ```
-# masking of "type" mentions
+# conversion from BioNLP format and masking of "type" mentions
 python bioscripts/preprocess.py --corpus $CORPUS_FOLDER --masking type
 ```
 `$CORPUS_FOLDER` is the folder in `$BEESL_DIR/data/corpora/` containing biomedical events in the standard [BioNLP standoff format](http://2011.bionlp-st.org/home/file-formats), e.g., `GE11` you just downloaded.
