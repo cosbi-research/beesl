@@ -158,11 +158,6 @@ $PROTEIN$    118-121      T4          [ENT]Protein [POS]NOUN [DEP]compound O    
 +            121-122      O           [ENT]-    [POS]CCONJ [DEP]cc    O       O
 T            123-124      O           [ENT]-    [POS]NOUN [DEP]conj   O       O
 cells        125-130      O           [ENT]-    [POS]NOUN [DEP]nmod   O       O
-from         131-135      O           [ENT]-    [POS]ADP  [DEP]case   O       O
-patients     136-144      O           [ENT]-    [POS]NOUN [DEP]nmod   O       O
-with         145-149      O           [ENT]-    [POS]ADP  [DEP]case   O       O
-rheumatoid   150-160      O           [ENT]-    [POS]ADJ  [DEP]amod   O       O
-arthritis    161-170      O           [ENT]-    [POS]NOUN [DEP]nmod   O       O
 
 # doc_id = PMC-1064873-00-TIAB
 $PROTEIN$    172-177   T5             [ENT]Protein [POS]NOUN [DEP]nsubjpass O       O
