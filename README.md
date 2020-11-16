@@ -84,9 +84,7 @@ The arguments are
 * `$PREDICTIONS_FILE`: the predictions of events in BeeSL format
 * `$DEVICE`: a device where to run the inference (i.e., CPU: `-1`, GPU: `0`, `1`, ...)
 
-To collect the detected event parts and text portions `{{TODO}}`
-
-The following two lines will create the folder `output/` in the BeeSL root project populated with the predictions in [BioNLP standoff format](http://2011.bionlp-st.org/home/file-formats):
+The detected event parts and text portions will be populated in the `output/` folder of the BeeSL project by running the following two lines. The predictions will be generated in [BioNLP standoff format](http://2011.bionlp-st.org/home/file-formats).
 
 ```
 # Merge predicted labels
