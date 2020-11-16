@@ -70,21 +70,37 @@ You now have everything in place and are ready to start using the system.
 
 While this is a research product, the quality reached by the system makes it suitable to be used in real research settings for [event detection](#event-extraction-prediction) and [training new models](#training-a-new-model) of your own. 
 
+To avoid overfitting to model data, the system was designed to be trained on data where specific words have been hidden, allowing to learn the wider linguistic construction rather than word contexts. This process is called *masking* of the metions `type (d)`, e.g. by writing `$PROTEIN` in place of G6PD. A model trained on masked data will best perform event extraction on masked data. Easy preprocessing commands are provied in the following examples.
 
 ## Event extraction (prediction)
 
 To detect biomedical events, run:
 ```
+# masking of "type" mentions
+python bioscripts/preprocess.py --corpus $CORPUS_FOLDER --masking type
+```
+`$CORPUS_FOLDER` is the folder in `$BEESL_DIR/data/corpora/` containing biomedical events in the standard [BioNLP standoff format](http://2011.bionlp-st.org/home/file-formats), e.g., `GE11` you just downloaded.
+
+
+```
+# actual event extraction
 python predict.py $PATH_TO_MODEL $BEESL_INPUT_FILE $PREDICTIONS_FILE --device $DEVICE
 ```
 
-The arguments are
+Where:
 * `$PATH_TO_MODEL`: a serialized model fine-tuned on biomedical events, for example the one provided above at https://www.cosbi.eu/fx/2354/model.tar.gz.
 * `$BEESL_INPUT_FILE`: a BeeSL format with entities masked (see [how to make it](#beesl-data-format)). For example the provided [`$BEESL_DIR/data/GE11/masked/test.mt.1`](data/GE11/masked/test.mt.1).
 * `$PREDICTIONS_FILE`: the predictions of events in BeeSL format
 * `$DEVICE`: a device where to run the inference (i.e., CPU: `-1`, GPU: `0`, `1`, ...)
 
-The detected event parts and text portions will be populated in the `output/` folder of the BeeSL project by running the following two lines. The predictions will be generated in [BioNLP standoff format](http://2011.bionlp-st.org/home/file-formats).
+
+The detected event parts and text portions are now masked in the `$PREDICTIONS_FILE`. To recover back the entities just unmask them with:
+```
+# unmasking of "type" mentions
+python bioscripts/preprocess.py --corpus $CORPUS_FOLDER --masking no
+```
+
+The BeeSL prediction file can be converted into the BioNLP standoff format with the following two lines. An `output/` folder will be created in the BeeSL project with the converted files: 
 
 ```
 # Merge predicted labels
@@ -93,7 +109,7 @@ python bio-mergeBack.py $PREDICTIONS_FILE $BEESL_INPUT_FILE 2 > $PREDICTIONS_NOT
 python bioscripts/postprocess.py --filepath $PREDICTIONS_NOT_MASKED
 ```
 
-To evaluate the prediction performance on the GENIA test set, compress the results `cd $BEESL_DIR/output/ && tar -czf predictions.tar.gz *.a2` and submit `predictions.tar.gz` to the official [GENIA online evaluation service](http://bionlp-st.dbcls.jp/GE/2011/eval-test/).
+To evaluate the prediction performance on the GENIA test set (in the BioNLP standoff format), compress the results `cd $BEESL_DIR/output/ && tar -czf predictions.tar.gz *.a2` and submit `predictions.tar.gz` to the official [GENIA online evaluation service](http://bionlp-st.dbcls.jp/GE/2011/eval-test/).
 
 
 ## Training a new model
@@ -123,14 +139,15 @@ Biomedical events are commonly defined using the standard [BioNLP standoff forma
 python bioscripts/preprocess.py --corpus $CORPUS_FOLDER --masking type
 python bioscripts/preprocess.py --corpus $CORPUS_FOLDER --masking no
 ```
-`$CORPUS_FOLDER` is the folder in `$BEESL_DIR/data/corpora/` containing biomedical events in the standard BioNLP standoff format, e.g., `GE11` you just downloaded.
 
-The masking is used during training and evaluation to avoid overfitting to word types during training (argument `type` e.g. `$PROTEIN` in the example below) and to ensure the correct evaluation of entity arguments (the argument `no`).
+
+The masking is used during training and prediction to avoid overfitting to word types during training (argument `type` e.g. `$PROTEIN` in the example below).
+Unmasking is used to write the entities back and be able to verify the entity arguments for the performance evaluation (the argument `no`).
 
 For event extraction (no training nor evaluation) `{{TODO}}`
 
 **Details on the BeeSL file format**
-The BeeSL file format makes explicit the sequence of labels proved to boost perfomances. Each sentence starts with a header `doc_id = $DOC_ID` denoting the sentence identifier. All sentence tokens are then placed one per line. An empty line follows the last token. Note that senteces can be at most 768 tokens long as per BERT model input.
+The BeeSL file format makes explicit the sequence of labels proved to boost perfomances. Each sentence starts with a header `doc_id = $DOC_ID` denoting the sentence identifier. All sentence tokens are then placed one per line. An empty line follows the last token. Note that senteces can be at most 512 tokens long as per BERT model input.
 
 Here is the specification, followed by an excerpt of a [full example](data/GE11/masked/test.mt.1):
 ```
