@@ -78,8 +78,7 @@ To detect biomedical events, run:
 # conversion from BioNLP format and masking of "type" mentions
 python bioscripts/preprocess.py --corpus $CORPUS_FOLDER --masking type
 ```
-`$CORPUS_FOLDER` is the folder in `$BEESL_DIR/data/corpora/` containing biomedical events in the standard [BioNLP standoff format](http://2011.bionlp-st.org/home/file-formats), e.g., `GE11` you just downloaded.
-
+`$CORPUS_FOLDER` contains the biomedical text in the standard [BioNLP standoff format](http://2011.bionlp-st.org/home/file-formats), e.g., `$BEESL_DIR/data/GE11` you just downloaded. This command will create the subfolder `masked` with BeeSL input format suitable to the:
 
 ```
 # actual event extraction
