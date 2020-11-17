@@ -25,7 +25,7 @@ Biomedical events are structured representations which comprise multiple informa
 - **h**ead of an event is a verbal form; here, the it's the event initiator to be denoted as head, along with the event *type* and position (subscript) of the event verb the initiator refers to.
 
 ![encoding](resources/encoding.png)
-**Figure 1**: *Above the dashed line: an (italicized) text excerpt with four biomedical events. The mention types shown upon the text are (boxed) triggers and entities. Thematic roles, characterizing the event, label the edges among the relevant mentions. Below the dashes: our proposed encoding for mention types (**d**), themaitc roles (**r**) and **h**eads. See the [paper](https://www.researchgate.net/publication/344541520_Biomedical_Event_Extraction_as_Sequence_Labeling) for more details.*
+**Figure 1**: *Above the dashed line: an (italicized) text excerpt with four biomedical events. The mention types shown upon the text are (boxed) triggers and entities. Thematic roles, characterizing the event, label the edges among the relevant mentions. Below the dashes: our proposed encoding for mention types (**d**), themaitc roles (**r**) and heads (**h**). See the [paper](https://www.researchgate.net/publication/344541520_Biomedical_Event_Extraction_as_Sequence_Labeling) for more details.*
 
 At this point we recast event extraction as a sequence labeling task as any token may have multiple associated labels. Adopting a Systems Thinking approach, we design a multi-label aware encoding strategy for jointly modeling the intermediate tasks via multi-task learning.
 
