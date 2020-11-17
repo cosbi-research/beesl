@@ -15,7 +15,7 @@ python bioscripts/preprocess.py --corpus $CORPUS_FOLDER --masking type
 python bioscripts/preprocess.py --corpus $CORPUS_FOLDER --masking no
 ```
 
-Masking is used during training and prediction to avoid overfitting to mention types (**d**) during training (argument `type` e.g. `$PROTEIN` in the example below).
+Masking is used during training and prediction to avoid overfitting to mention types (**d**) during training (argument `type` e.g. `$PROTEIN$` in the example below).
 Unmasking is used to write the entities back and be able to use and verify the mention types in your work or for performance evaluation (the argument `no`).
 
 **Details on the BeeSL file format**
