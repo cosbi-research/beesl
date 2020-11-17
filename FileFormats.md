@@ -65,7 +65,7 @@ The training process requires configuration files to know how to conduct the tra
 
 ### Dataset configuration file
 
-A dataset configuration file is used to define the data path and details on the tasks. **We recommend to use our configuration file for the multi-task multi-label setup [`$BEESL_DIR/config/mt.1.mh.0.50.json`](config/mt.1.mh.0.50.json)**. In the case you need to train BeeSL on new data, you need to define the path to [your data](#details-on-the-beesl-file-format):
+A dataset configuration file is used to define the data path and details on the tasks. **We recommend to use our configuration file for the multi-task multi-label setup [`$BEESL_DIR/config/mt.1.mh.0.50.json`](config/mt.1.mh.0.50.json)**. In the case you need to train BeeSL on new data, you need to define the path to [your data](#beesl-data-format):
 
 ```
 "train_data_path": "",      # path to the masked token-level training file
