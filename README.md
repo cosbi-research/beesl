@@ -87,7 +87,7 @@ python predict.py $PATH_TO_MODEL $BEESL_INPUT_FILE $PREDICTIONS_FILE --device $D
 
 Where:
 * `$PATH_TO_MODEL`: a serialized model fine-tuned on biomedical events, for example the one provided above at https://www.cosbi.eu/fx/2354/model.tar.gz.
-* `$BEESL_INPUT_FILE`: a BeeSL format with entities masked. For an example, see the provided [`$BEESL_DIR/data/GE11/masked/test.mt.1`](data/GE11/masked/test.mt.1). More info on the [BeeSL file format](FileFormats.md#beesl-data-format).
+* `$BEESL_INPUT_FILE`: a BeeSL format with entities you have just masked with the previous command. For an example, see the provided [`$BEESL_DIR/data/GE11/masked/test.mt.1`](data/GE11/masked/test.mt.1). More info on the [BeeSL file format](FileFormats.md#beesl-data-format).
 * `$PREDICTIONS_FILE`: the predictions of events in BeeSL format
 * `$DEVICE`: a device where to run the inference (i.e., CPU: `-1`, GPU: `0`, `1`, ...)
 
@@ -117,9 +117,10 @@ To train a new model, type:
 # conversion from BioNLP format and masking of "type" mentions
 python bioscripts/preprocess.py --corpus $CORPUS_FOLDER --masking type
 ```
-`$CORPUS_FOLDER` is the folder in `$BEESL_DIR/data/corpora/` containing biomedical events in the standard [BioNLP standoff format](http://2011.bionlp-st.org/home/file-formats), e.g., `GE11` you just downloaded.
+`$CORPUS_FOLDER` contains the biomedical text in the standard [BioNLP standoff format](http://2011.bionlp-st.org/home/file-formats), e.g., `$BEESL_DIR/data/GE11` you just downloaded. This command will create the subfolder `masked` with BeeSL input format suitable to the:
 
 ```
+# actual model training
 python train.py --name $NAME --dataset_config $DATASET_CONFIG --parameters_config $PARAMETERS_CONFIG --device $DEVICE
 ```
 * `$NAME`: a name for the execution that will be used as folder where outputs will be stored
