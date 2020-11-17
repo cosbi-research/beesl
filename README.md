@@ -22,12 +22,12 @@ For more information on ongoing work in biomedical information extraction you ma
 Biomedical events are structured representations which comprise multiple information units (Figure 1, above the line). We encode such event structure into a representation in which each token (roughly, word) is assigned the following labels summarizing its pertinent parts of the original event structure (Figure 1, below the line):
 - **d**ependent or, *type of mention*, the token assumes in the event, either an *event trigger*, an *entity*, or *nothing*;
 - **r**elation or, *thematic role*, the argument token is playing in the event;
-- **h**ead of an event is a verbal form; here, the event initiator is denoted as head along with the event *type* and position (subscript) of the event verb the initiator refers to.
+- **h**ead of an event is a verbal form; here, the it's the event initiator to be denoted as head, along with the event *type* and position (subscript) of the event verb the initiator refers to.
 
 ![encoding](resources/encoding.png)
 **Figure 1**: *Above the dashed line: an (italicized) text excerpt with four biomedical events. The mention types shown above the text are (boxed) triggers and entities. Thematic roles of arguments are on the edges. Below the dashes: our proposed encoding, for **d**ependent types, **r**elations and **h**eads represent the labels. See the [paper](https://www.researchgate.net/publication/344541520_Biomedical_Event_Extraction_as_Sequence_Labeling) for more details.*
 
-At this point we recast event extraction as a sequence labeling task as any token may have multiple associated labels. Adopting a system thinking approach, we design a multi-label aware encoding strategy for jointly modeling the intermediate tasks via multi-task learning.
+At this point we recast event extraction as a sequence labeling task as any token may have multiple associated labels. Adopting a Systems Thinking approach, we design a multi-label aware encoding strategy for jointly modeling the intermediate tasks via multi-task learning.
 
 After encoding events as a sequence of labels the labels for the token sequences are predicted using a neural architecture employing BERT as encoder. Dedicated classifiers for predicting the label parts (referred as tasks) are devised. Experimental results show that the best results are achieved by learning two tasks in a multi-task setup. A single label classifier for the **d**ependent, and a multi-label classifier for **r**elation and **h**ead `<`**r**,**h**`>` able to capture the participation of the same token into multiple events. The sequences are finally decoded to the original event representation (Figure 1, top part).
 
@@ -70,7 +70,7 @@ You now have everything in place and are ready to start using the system.
 
 While this is a research product, the quality reached by the system makes it suitable to be used in real research settings for either [event detection](#event-extraction-prediction) or [training new models](#training-a-new-model) of your own. 
 
-The system was designed to be trained on data where specific words have been hidden. This allows to learn the wider linguistic construction rather than word contexts and avoid overfitting to training data, making it more apt to general use, beyond model data. The process is called *masking* of the metions `type (d)` (e.g. by writing `$PROTEIN` in place of G6PD). A model trained on masked data will best perform event extraction on masked data. Easy masking/unmasking commands are provided in the following examples.
+The system was designed to be trained on data where entity mentions have been hidden. This allows to learn the wider linguistic construction rather than the mentions themselves and avoid overfitting to training data, making it more apt to general use, beyond model data. The process is called *masking* of the metions `type (d)` (e.g. by writing `$PROTEIN` in place of G6PD). A model trained on masked data will best perform event extraction on masked data. Easy masking/unmasking commands are provided in the following examples.
 
 ## Event extraction (prediction)
 
