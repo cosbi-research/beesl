@@ -2,7 +2,7 @@
 
 This section gives complete yet concise details on how to create and use configuration files and data files in BeeSL.
 
-For more information you may want to get in touch with the Cosbi Bioinformatics lab led by lombardo@cosbi.eu. We'll be happy to help!
+For any information or request you may want to get in touch with the Cosbi Bioformatics lab led by lombardo@cosbi.eu. We'll be happy to help!
 
 ## BeeSL data format
 
