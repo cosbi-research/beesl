@@ -88,7 +88,7 @@ python predict.py $PATH_TO_MODEL $BEESL_INPUT_FILE $PREDICTIONS_FILE --device $D
 
 Where:
 * `$PATH_TO_MODEL`: a serialized model fine-tuned on biomedical events, for example the one provided above at https://www.cosbi.eu/fx/2354/model.tar.gz.
-* `$BEESL_INPUT_FILE`: a BeeSL format with entities masked (see [how to make it](fileformats.md#beesl-data-format)). For example the provided [`$BEESL_DIR/data/GE11/masked/test.mt.1`](data/GE11/masked/test.mt.1).
+* `$BEESL_INPUT_FILE`: a BeeSL format with entities masked (see [how to make it](FileFormats.md#beesl-data-format)). For example the provided [`$BEESL_DIR/data/GE11/masked/test.mt.1`](data/GE11/masked/test.mt.1).
 * `$PREDICTIONS_FILE`: the predictions of events in BeeSL format
 * `$DEVICE`: a device where to run the inference (i.e., CPU: `-1`, GPU: `0`, `1`, ...)
 
@@ -124,9 +124,9 @@ python bioscripts/preprocess.py --corpus $CORPUS_FOLDER --masking type
 python train.py --name $NAME --dataset_config $DATASET_CONFIG --parameters_config $PARAMETERS_CONFIG --device $DEVICE
 ```
 * `$NAME`: a name for the execution that will be used as folder where outputs will be stored
-* `$DATASET_CONFIG`: a filepath to a config file storing [task information](fileformats.md#dataset-configuration-file)
+* `$DATASET_CONFIG`: a filepath to a config file storing [task information](FileFormats.md#dataset-configuration-file)
   * e.g., [`$BEESL_DIR/config/mt.1.mh.0.50.json`](config/mt.1.mh.0.50.json) we provide (recommended), or your own one
-* `$PARAMETERS_CONFIG`: a filepath to a config file storing [model parameters](fileformats.md#parameters-configuration-file)
+* `$PARAMETERS_CONFIG`: a filepath to a config file storing [model parameters](FileFormats.md#parameters-configuration-file)
   * e.g., [`$BEESL_DIR/config/params.json`](config/params.json) we provide (recommended), or your own one
 * `$DEVICE`: a device where to run the training (i.e., CPU: `-1`, GPU: `0`, `1`, ...)
 
