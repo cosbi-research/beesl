@@ -73,6 +73,6 @@ A dataset configuration file is used to define the data path and details on the 
 "test_data_path": "",       # path to the masked token-level validation file
 ```
 
-### Parameters configuration file
+### Model parameters configuration file
 
 A parameters configuration file is used to define the details of the model (i.e., hyper-parameters, BERT details, etc.). **We recommend to use our parameters configuration file [`$BEESL_DIR/config/params.json`](config/params.json)**. Expert users that want to run an hyper-parameter tuning themselves can refer to the [AllenNLP configuration template](https://github.com/allenai/allennlp-template-config-files/blob/master/training_config/my_model_trained_on_my_dataset.jsonnet) for the meaning of all keys in the `json` file.
