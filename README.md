@@ -70,7 +70,7 @@ You now have everything in place and are ready to start using the system.
 
 While this is a research product, the quality reached by the system makes it suitable to be used in real research settings for either [event detection](#event-extraction-prediction) or [training new models](#training-a-new-model) of your own. 
 
-The system was designed to be trained on data where entity mentions have been hidden. This allows to learn the wider linguistic construction rather than the mentions themselves and avoid overfitting to training data, making it more apt to general use, beyond model data. The process is called *masking* of the metions `type (d)` (e.g. by writing `$PROTEIN` in place of G6PD). A model trained on masked data will best perform event extraction on masked data. Easy masking/unmasking commands are provided in the following examples.
+The system was designed to be trained on data where entity mentions have been hidden. This allows to learn the wider linguistic construction rather than the mentions themselves and avoid overfitting to training data, making it more apt to general use, beyond model data. The process is called *masking* of the mentions type (**d**) (e.g. by writing `$PROTEIN` in place of G6PD). A model trained on masked data will best perform event extraction on masked data. Easy masking/unmasking commands are provided in the following examples.
 
 ## Event extraction (prediction)
 
