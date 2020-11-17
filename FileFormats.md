@@ -2,6 +2,8 @@
 
 This section gives complete yet concise details on how to create and use configuration files and data files in BeeSL.
 
+For more information you may want to get in touch with the Cosbi Bioinformatics lab led by lombardo@cosbi.eu. We'll be happy to help!
+
 ## BeeSL data format
 
 Biomedical events are commonly defined using the standard [BioNLP standoff format](http://2011.bionlp-st.org/home/file-formats). A script `bioscripts/preprocess.py` is provided to convert the BioNLP standoff biomedical events format into BeeSL format. It also has an additional argument to mask and unmask the mentions of entities as described in the [usage](README.md#usage):
