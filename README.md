@@ -40,7 +40,7 @@ conda create --name beesl-env python=3.7  # create an python 3.7 env called bees
 conda activate beesl-env                  # activate the environment
 python -m pip install -r requirements.txt # install the packages from requirements.txt
 ```
-**NOTE**: we have tried hard, but there is no easy way to ship the installation of conda across operating systems and users, therefore this step is a necessary manual operation to do.
+**NOTE**: we have tried hard, but there is no easy way to ship the installation of conda across operating systems and users, therefore this step is a necessary manual operation to do. If you are an advanced user you may also proceed to the installation of your own python and requirements.
 
 Download the pre-trained [BioBERT-Base v1.1 (+ PubMed 1M) model](https://github.com/dmis-lab/biobert "here") and run:
 ```
