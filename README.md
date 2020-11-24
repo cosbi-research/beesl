@@ -71,6 +71,11 @@ While this is a research product, the quality reached by the system makes it sui
 
 The system was designed to be trained on data where entity mentions have been hidden. This allows to learn the wider linguistic construction rather than the mentions themselves and avoid overfitting to training data, making it more apt to general use, beyond model data. The process is called *masking* of the mentions type (**d**) (e.g. by writing `$PROTEIN` in place of G6PD). A model trained on masked data will best perform event extraction on masked data. Easy masking/unmasking commands are provided in the following examples.
 
+Before starting, just ensure that your conda environment is activated:
+```
+conda activate beesl-env                    # activate the environment
+```
+
 ## Event extraction (prediction)
 
 To detect biomedical events, run:
