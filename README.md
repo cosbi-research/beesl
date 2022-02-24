@@ -2,9 +2,9 @@
 
 BeeSL is a deep learning solution that is fast, accurate, end-to-end, and unlike current methods does not require any external knowledge base or preprocessing tools as it builds on [BERT](https://www.aclweb.org/anthology/N19-1423/). Empirical results show that BeeSL's speed and accuracy makes it a viable approach for large-scale real-world scenarios.
 
-This repository contains the source code for [Biomedical Event Extraction as Sequence Labeling](https://www.researchgate.net/publication/344541520_Biomedical_Event_Extraction_as_Sequence_Labeling) (BeeSL). You may freely use [this work](#reference-and-contact) in your research and activities under the non-commercial [COSBI-SSLA license](https://www.cosbi.eu/research/prototypes/licence_terms).
+This repository contains the source code for [Biomedical Event Extraction as Sequence Labeling](https://www.researchgate.net/publication/344541520_Biomedical_Event_Extraction_as_Sequence_Labeling) (BeeSL). 
 
-For more information on ongoing work in biomedical knowledge extraction you may want to visit the [COSBI knowledge extraction page](https://www.cosbi.eu/research/prototypes/biomedical_knowledge_extraction) or get in touch with the [COSBI Bioinformatics lab](mailto:bioinformatics@cosbi.eu). We'll be happy to help!
+For more information on ongoing work in biomedical knowledge extraction you may want to visit the [COSBI knowledge extraction page](https://www.cosbi.eu/prototypes/biomedical-knowledge-extraction) or get in touch with the [COSBI Bioinformatics lab](mailto:bioinformatics@cosbi.eu). We'll be happy to help!
 
 ## Table of contents
 
@@ -42,7 +42,7 @@ python -m pip install -r requirements.txt # install the packages from requiremen
 ```
 **NOTE**: we have tried hard, but there is no easy way to ship the installation of conda across operating systems and users, therefore this step is a necessary manual operation to do. Advanced users may also proceed to custom installation of python and requirements.txt
 
-Download the pre-trained [BioBERT-Base v1.1 (+ PubMed 1M) model](https://github.com/dmis-lab/biobert "here") and run:
+Download the pre-trained [BioBERT-Base v1.1 (+ PubMed 1M) model](https://github.com/dmis-lab/biobert) and run:
 ```
 # Extract the model, convert it to pytorch, and clean the directory
 tar xC models -f $DOWNLOAD_DIR/biobert_v1.1_pubmed.tar.gz 
