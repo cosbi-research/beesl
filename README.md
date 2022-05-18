@@ -149,9 +149,9 @@ If you use this work in your research paper, we provide the full citation detail
     year      = "2020",
     booktitle = "Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing (EMNLP)",
     publisher = "Association for Computational Linguistics",
-    pages     = "", % we will update this field when available
+    pages     = "5357–5367",
     location  = "Online",
-    url       = ""  % we will update this field when available
+    url       = "https://aclanthology.org/2020.emnlp-main.431/" 
 }
 ```
 
